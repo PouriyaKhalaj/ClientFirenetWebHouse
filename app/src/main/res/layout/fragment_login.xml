@@ -1,0 +1,152 @@
+<android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment"
+    android:background="@drawable/bg_cilent_portal">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:fillViewport="true">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#30000000">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginLeft="@dimen/card_margin_medium"
+                android:layout_marginTop="@dimen/box_content_margin"
+                android:layout_marginRight="@dimen/card_margin_medium"
+                android:layout_marginBottom="@dimen/card_margin_medium"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ورود به سامانه"
+                    android:id="@+id/textView4"
+                    android:textSize="@dimen/txt_size_xxlarge"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="50dp" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_view_drafts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/black"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="#C5FFFCFC"
+                    android:layout_marginBottom="@dimen/card_margin">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/card_margin">
+
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center_vertical">
+
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/card_content_margin"
+                                android:layout_weight="2"
+                                android:theme="@style/TextLabel">
+                                <EditText
+                                    android:id="@+id/input_login_username"
+                                    android:inputType="text"
+                                    android:hint="کلمه کاربری"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/black"
+                                    android:maxLength="30"
+                                    android:nestedScrollingEnabled="true"  />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <!--  Username Label -->
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center_vertical">
+
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/card_content_margin"
+                                android:layout_weight="2"
+                                android:theme="@style/TextLabel"
+                                android:measureWithLargestChild="false">
+                                <EditText
+                                    android:id="@+id/input_login_password"
+                                    android:inputType="textPassword|text"
+                                    android:hint="رمز عبور"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/black"
+                                    android:maxLength="30"
+                                    android:nestedScrollingEnabled="true"
+                                    />
+                            </android.support.design.widget.TextInputLayout>
+
+
+                        </LinearLayout>
+                        <!--  Password Label -->
+
+                        <!--  Submit Bottom -->
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/card_view_login_submit_sign_in"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            app:cardCornerRadius="2dp"
+                            app:cardElevation="1dp"
+                            app:cardBackgroundColor="@color/colorAccent">
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:id="@+id/textView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:singleLine="true"
+                                        android:text="تایید"
+                                        android:textColor="@color/white"
+                                        android:padding="@dimen/card_content_margin"
+                                        android:layout_centerInParent="true"
+                                        android:longClickable="false"
+                                        android:textStyle="bold"
+                                        android:layout_gravity="center" />
+                                </FrameLayout>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+    </FrameLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

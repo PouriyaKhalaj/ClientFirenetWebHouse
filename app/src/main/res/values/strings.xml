@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">پرتال خانه وب</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">جستجو</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="messages">پیام ها</string>
+    <string name="notifications">اطلاعیه ها</string>
+
+    <string name="counter">پیشخوان</string>
+    <string name="profile">پروفایل</string>
+    <string name="ticketing">تیکتینگ</string>
+    <string name="questions">سوالات متداول</string>
+    <string name="help">راهنما</string>
+    <string name="regulation">قوانین و مقررات</string>
+    <string name="contacts">اطلاعات تماس</string>
+
+    <string name="moreTools">بیشتر</string>
+
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_login_registry">ورود</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tracking_code"> کد رهگیری: </string>
+    <string name="date"> تاریخ: </string>
+    <string name="status"> وضعیت: </string>
+    <string name="priority"> اولویت: </string>
+    <string name="result"> نتیجه: </string>
+    <string name="filter_question">فیلتر پرسش ها</string>
+    <string name="new_question">پرسش جدید</string>
+</resources>

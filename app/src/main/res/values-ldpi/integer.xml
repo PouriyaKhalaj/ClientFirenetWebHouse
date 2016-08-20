@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  2.7 	240 × 320 	ldpi
+  3.3 	240 × 400 	ldpi
+  3.4 	240 × 432 	ldpi
+  -->
+<resources>
+    <integer name="esm">10</integer>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <!--
+    3.2 	320 × 480 	mdpi
+    -->
+
+    <dimen name="dialog_width_size">350dp</dimen>
+
+</resources>

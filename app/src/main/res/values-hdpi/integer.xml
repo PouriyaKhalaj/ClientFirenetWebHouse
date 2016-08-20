@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    3.7 	480 × 854 	hdpi
+    4.0 	480 × 800 	hdpi
+    -->
+<resources>
+    <integer name="esm">5</integer>
+</resources>

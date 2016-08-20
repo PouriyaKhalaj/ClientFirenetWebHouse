@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 720dp: a 10” tablet (720x1280 mdpi, 800x1280 mdpi, etc). 10.1” tablet 1280x800 mdpi -->
+    <integer name="esm">10</integer>
+</resources>

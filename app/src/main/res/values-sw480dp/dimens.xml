@@ -1,0 +1,28 @@
+<resources>
+    <!-- 480dp: a tweener tablet like the Streak (480x800 mdpi). 5.1”  480x800 mdpi / 5.4”  480x854 mdpi  -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="txt_size_xmedium">12dp</dimen>
+    <dimen name="txt_size_medium">13dp</dimen>
+    <dimen name="txt_size_normal">14dp</dimen>
+    <dimen name="txt_size_large">18dp</dimen>
+    <dimen name="txt_size_xlarge">24dp</dimen>
+    <dimen name="txt_size_xxlarge">32dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="card_margin_xmedium">12dp</dimen>
+    <dimen name="card_margin_medium">14dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_dialog_margin">5dp</dimen>
+    <dimen name="card_content_margin">10dp</dimen>
+    <dimen name="box_content_margin">100dp</dimen>
+    <dimen name="list_item_avatar_size">40dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
+    <dimen name="tabsHeight">48dp</dimen>
+    <dimen name="div_size">1dp</dimen>
+
+    <dimen name="dialog_width_size">380dp</dimen>
+
+</resources>
