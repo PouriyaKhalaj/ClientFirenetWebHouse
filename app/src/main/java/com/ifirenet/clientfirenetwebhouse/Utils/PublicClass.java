@@ -1,16 +1,15 @@
 package com.ifirenet.clientfirenetwebhouse.Utils;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.ObbInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.ifirenet.clientfirenetwebhouse.Services.MyService;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
@@ -70,5 +69,12 @@ public class PublicClass {
         Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    public void hideKeyboard(EditText input, Activity activity){
+        if (input != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+        }
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#414B55</color>
+    <color name="colorPrimary">#414b55</color>
     <color name="colorPrimaryDark">#202933</color>
     <color name="colorAccent">#0F8009</color>
 
-    <color name="colorBackground">#4444</color>
+    <color name="colorBackground">#cccccc</color>
     <color name="cursorAccent">#fd8888</color>
     <color name="controlNormal">#888888</color>
     <color name="controlActivated">#1b45ff</color>

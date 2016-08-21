@@ -1,5 +1,6 @@
 package com.ifirenet.clientfirenetwebhouse.Fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -119,6 +121,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         String username = input_username.getText().toString();
         String password = input_passdword.getText().toString();
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+            hideKeyboard(input_username);
             final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), null,
                     "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
@@ -170,6 +173,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void hideKeyboard(EditText input){
+        if (input != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+        }
+    }
 
 
     /**

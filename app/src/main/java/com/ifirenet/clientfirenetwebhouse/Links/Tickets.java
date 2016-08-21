@@ -14,7 +14,7 @@ public class Tickets {
     }
 
     public String getClientTicketUrl(){
-        String url = Urls.baseUrl + "ClientPortalService.svc/" ;
+        String url = Urls.baseURL + "ClientPortalService.svc/" ;
         if (offset == -1 && topNumber == -1)
             return url + "GetTicketsByUserID/" + userId ;
         else if(offset != -1 && topNumber == -1)
@@ -25,7 +25,7 @@ public class Tickets {
     }
 
     public String getSupportTicketUrl(){
-        String url = Urls.baseUrl + "ClientPortalService.svc/" ;
+        String url = Urls.baseURL + "ClientPortalService.svc/" ;
         if (offset == -1 && topNumber == -1)
             return url + "GetTicketsToUser/" + userId ;
         else if(offset != -1 && topNumber == -1)

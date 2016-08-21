@@ -40,7 +40,7 @@
             <FrameLayout
                 android:layout_width="@dimen/div_size"
                 android:layout_height="match_parent"
-                android:background="@color/material_grey_850"></FrameLayout>
+                android:background="@color/colorBackground"></FrameLayout>
 
             <LinearLayout
                 android:orientation="vertical"

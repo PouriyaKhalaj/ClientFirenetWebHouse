@@ -14,18 +14,17 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/img_view_profile"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:scaleType="fitCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/img_drawable_header_avatar"
+        android:src="@drawable/ic_avatar_person"
+        android:scaleType="fitXY"
+        android:layout_width="@dimen/img_header_avatar_size"
+        android:layout_height="@dimen/img_header_avatar_size"
         app:riv_corner_radius="30dip"
         app:riv_border_width="1dip"
         app:riv_border_color="@color/white"
         app:riv_mutate_background="true"
-        app:riv_tile_mode="mirror"
-        app:riv_oval="true"
-        android:padding="5dp"/>
+        app:riv_tile_mode="clamp"
+        app:riv_oval="true" />
 
     <TextView
         android:layout_width="match_parent"

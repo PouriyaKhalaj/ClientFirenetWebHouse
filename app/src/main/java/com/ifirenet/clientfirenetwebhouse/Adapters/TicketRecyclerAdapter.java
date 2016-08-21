@@ -23,13 +23,14 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int SUPPORT_TICKET= 2;
     Context context;
     ArrayList<Object> objectList;
-    private OnQuestionsRecyclerAdapterListener mListener;
+    private OnTicketRecyclerAdapterListener mListener;
 
-    public TicketRecyclerAdapter(Context context, ArrayList<Object> objectList, OnQuestionsRecyclerAdapterListener mListener) {
+    public TicketRecyclerAdapter(Context context, ArrayList<Object> objectList, OnTicketRecyclerAdapterListener mListener) {
         this.context = context;
         this.objectList = objectList;
         this.mListener = mListener;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -131,7 +132,7 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    public interface OnQuestionsRecyclerAdapterListener {
+    public interface OnTicketRecyclerAdapterListener {
         // TODO: Update argument type and name
         void onItemClick(Object object);
     }

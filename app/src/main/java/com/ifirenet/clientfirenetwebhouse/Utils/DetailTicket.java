@@ -26,7 +26,7 @@ public class DetailTicket {
     public String lastName;
 
     @SerializedName("NodeID")
-    public int nodeID;
+    public String nodeID;
 
     @SerializedName("PriorityStatus")
     public String priorityStatus;

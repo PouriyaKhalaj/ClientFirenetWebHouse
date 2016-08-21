@@ -22,7 +22,7 @@
     <dimen name="nav_header_height">200dp</dimen>
     <dimen name="tabsHeight">48dp</dimen>
     <dimen name="div_size">1dp</dimen>
-
+    <dimen name="img_header_avatar_size">65dp</dimen>
     <dimen name="dialog_width_size">320dp</dimen>
 
 </resources>

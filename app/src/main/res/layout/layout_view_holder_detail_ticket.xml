@@ -64,7 +64,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
+                        android:gravity="center_horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -85,7 +86,7 @@
                 <FrameLayout
                     android:layout_width="@dimen/div_size"
                     android:layout_height="match_parent"
-                    android:background="@color/material_grey_850"></FrameLayout>
+                    android:background="@color/colorBackground"></FrameLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -116,4 +117,5 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

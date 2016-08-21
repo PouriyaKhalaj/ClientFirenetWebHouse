@@ -18,7 +18,7 @@ public class Login {
     public void setPassword(String password) {this.password = password;}
 
     public String getLoginUrl(){
-        String url = Urls.baseUrl +  "ClientPortalService.svc/Authentication/" + username + "/" + password;
+        String url = Urls.baseURL +  "ClientPortalService.svc/Authentication/" + username + "/" + password;
         return url;
     }
 }

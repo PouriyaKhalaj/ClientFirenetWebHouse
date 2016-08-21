@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -95,6 +96,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         input_company = (EditText) view.findViewById(R.id.input_profile_company);
         card_submit = (CardView) view.findViewById(R.id.card_view_profile_submit);
 
+        CardView card_first_name = (CardView) view.findViewById(R.id.card_view_profile_first_name);
+        CardView card_last_name = (CardView) view.findViewById(R.id.card_view_profile_last_name);
+        CardView card_email = (CardView) view.findViewById(R.id.card_view_profile_email);
+        CardView card_phone = (CardView) view.findViewById(R.id.card_view_profile_phone);
+        CardView card_cellPhone = (CardView) view.findViewById(R.id.card_view_profile_phone_number);
+        CardView card_company = (CardView) view.findViewById(R.id.card_view_profile_company);
+
         String user_json = preference.Get(Keys.PREF_APP, Keys.User);
         if (user_json.equals(Keys.NULL)) {
             return;
@@ -102,12 +110,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Gson gson = new Gson();
         User user = gson.fromJson(user_json , User.class);
 
-        input_firstName.setText(user.name);
-        input_lastName.setText(user.name);
+        input_firstName.setText(user.firstName);
+        input_lastName.setText(user.lastName);
         input_email.setText(user.email);
         input_phone.setText(user.phone);
         input_cellPhone.setText(user.cellPhone);
         input_company.setText(user.company);
+
+        if (TextUtils.isEmpty(user.firstName))
+            card_first_name.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(user.lastName))
+            card_last_name.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(user.email))
+            card_email.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(user.phone))
+            card_phone.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(user.cellPhone))
+            card_cellPhone.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(user.company))
+            card_company.setVisibility(View.GONE);
 
         card_submit.setOnClickListener(this);
     }
