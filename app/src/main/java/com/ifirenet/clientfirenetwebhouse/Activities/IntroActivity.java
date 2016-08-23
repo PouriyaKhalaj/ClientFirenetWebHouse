@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +22,7 @@ import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Update.Version;
 import com.ifirenet.clientfirenetwebhouse.Utils.Update.VersionList;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
+import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
@@ -188,20 +188,21 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
     }
 
     @Override
-    public void onLoginFragment(boolean isLogin) {
+    public void onLoginFragment(boolean isLogin, UserInfo userInfo) {
         if (isLogin) {
-            startActivity(new Intent(this, MainActivity.class));
+
+            Gson gson = new Gson();
+            String myJson = gson.toJson(userInfo);
+
+            Intent i = new Intent(this, MainActivity.class);
+            i.putExtra(MainActivity.BUNDLE_KEY, myJson);
+            startActivity(i);
             finish();
         }
     }
 
     @Override
     public void onBackPressed() {
-        /*if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }*/
         showAlertDialog(STEP_FINISH, "بستن برنامه", "آیا از بستن برنامه مطمئن هستید؟", "بستن برنامه", "انصراف");
     }
 }

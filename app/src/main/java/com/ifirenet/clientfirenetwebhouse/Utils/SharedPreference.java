@@ -1,11 +1,11 @@
-package com.ifirenet.clientfirenetwebhouse.Utils;
+/**package com.ifirenet.clientfirenetwebhouse.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
  * Created by user on 05/09/2015.
- */
+
 public class SharedPreference {
     Context context;
 
@@ -37,3 +37,4 @@ public class SharedPreference {
         shp.edit().remove("text").commit();
     }
 }
+ */

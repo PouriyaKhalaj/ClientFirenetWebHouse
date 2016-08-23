@@ -13,25 +13,25 @@ public class Tickets {
         this.topNumber = topNumber;
     }
 
-    public String getClientTicketUrl(){
-        String url = Urls.baseURL + "ClientPortalService.svc/" ;
+    public String getClientTicketUrl(Login login){
+        String url = Urls.baseURL + "ClientPortalService.svc/"  ;
         if (offset == -1 && topNumber == -1)
-            return url + "GetTicketsByUserID/" + userId ;
+            return url + "GetTicketsByUserID/"+ login.getUsername() + "/" + login.getPassword() + "/" + userId ;
         else if(offset != -1 && topNumber == -1)
-            return url + "GetTicketsByUserIDFromRow/" + userId  + "?offset=" + offset;
+            return url + "GetTicketsByUserIDFromRow/" + login.getUsername() + "/" + login.getPassword() + "/" + userId  + "?offset=" + offset;
         else if(offset != -1 && topNumber != -1)
-            return url + "GetTicketsByUserIDFromRowTopN/"+ userId +"?offset=" + offset + "&topN=" + topNumber;
+            return url + "GetTicketsByUserIDFromRowTopN/"+ login.getUsername() + "/" + login.getPassword() + "/" + userId +"?offset=" + offset + "&topN=" + topNumber;
         return url;
     }
 
-    public String getSupportTicketUrl(){
-        String url = Urls.baseURL + "ClientPortalService.svc/" ;
+    public String getSupportTicketUrl(Login login){
+        String url = Urls.baseURL + "ClientPortalService.svc/";
         if (offset == -1 && topNumber == -1)
-            return url + "GetTicketsToUser/" + userId ;
+            return url + "GetTicketsToUser/" + login.getUsername() + "/" + login.getPassword() + "/" + userId ;
         else if(offset != -1 && topNumber == -1)
-            return url + "GetTicketsToUserFromRow/" + userId  + "?offset=" + offset;
+            return url + "GetTicketsToUserFromRow/" + login.getUsername() + "/" + login.getPassword() + "/" + userId  + "?offset=" + offset;
         else if(offset != -1 && topNumber != -1)
-            return url + "GetTicketsToUserFromRowTopN/"+ userId +"?offset=" + offset + "&topN=" + topNumber;
+            return url + "GetTicketsToUserFromRowTopN/" + login.getUsername() + "/" + login.getPassword() + "/" + userId +"?offset=" + offset + "&topN=" + topNumber;
         return url;
     }
 }

@@ -5,35 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.DetailTicketFragment">
-<!--
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view_asine_detail_ticket_item"
+        android:id="@+id/card_view_customer_detail_ticket_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        android:layout_marginBottom="@dimen/card_margin"
-        android:layout_marginLeft="@dimen/card_margin"
-        android:layout_marginRight="@dimen/card_margin">
+        app:cardBackgroundColor="@color/white">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_attached_info"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_content_margin">
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:scrollbars="none"
-                android:overScrollMode="never"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/card_content_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اعلام نتیجه بررسی"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_customer_detail_ticket_result"
+                    android:entries="@array/result_arrays"/>
+            </LinearLayout>
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-    -->
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view_detail_ticket_update"
+        android:id="@+id/card_view_support_detail_ticket_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white">
@@ -44,13 +59,95 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/card_content_margin">
 
-            <Spinner
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <!--  Submit Bottom -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_view_support_detail_ticket_update_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="1dp"
+                    app:cardBackgroundColor="@color/colorAccent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="false"
+                            android:text="ذخیره"
+                            android:textColor="@color/white"
+                            android:layout_centerInParent="true"
+                            android:longClickable="false"
+                            android:textStyle="bold"
+                            android:paddingLeft="@dimen/card_margin"
+                            android:paddingRight="@dimen/card_margin"
+                            android:paddingTop="@dimen/card_content_margin"
+                            android:paddingBottom="@dimen/card_content_margin" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_detail_ticket_result" />
+                android:layout_margin="@dimen/card_content_margin"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="انتساب به"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_support_detail_ticket_attach"
+                    android:entries="@array/status_arrays" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_content_margin"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="وضعیت"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_support_detail_ticket_status"
+                    android:entries="@array/status_arrays"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_detail_ticket"

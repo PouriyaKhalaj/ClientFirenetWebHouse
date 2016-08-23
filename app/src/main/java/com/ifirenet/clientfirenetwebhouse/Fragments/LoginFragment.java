@@ -1,27 +1,24 @@
 package com.ifirenet.clientfirenetwebhouse.Fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ifirenet.clientfirenetwebhouse.Links.Login;
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
-import com.ifirenet.clientfirenetwebhouse.Utils.SharedPreference;
 import com.ifirenet.clientfirenetwebhouse.Utils.User;
+import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
@@ -51,7 +48,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     View view;
     EditText input_username, input_passdword;
     CardView submit_signIn;
-    SharedPreference preference;
     PublicClass publicClass;
 
     public LoginFragment() {
@@ -88,7 +84,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         input_passdword = (EditText) view.findViewById(R.id.input_login_password);
         submit_signIn = (CardView) view.findViewById(R.id.card_view_login_submit_sign_in);
         input_username.requestFocus();
-        preference = new SharedPreference(getActivity());
         publicClass = new PublicClass(getActivity());
 
         submit_signIn.setOnClickListener(this);
@@ -118,6 +113,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
             return;
         }
+
         String username = input_username.getText().toString();
         String password = input_passdword.getText().toString();
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
@@ -125,7 +121,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), null,
                     "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
-            Login login = new Login(username, password);
+            final Login login = new Login(username, password);
             Ion.with(getActivity())
                     .load(login.getLoginUrl())
                     .asString()
@@ -155,8 +151,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                             return;
                                         }
                                         publicClass.showToast(user.message);
-                                        preference.Set(Keys.PREF_APP, Keys.User, res);
-                                        mListener.onLoginFragment(true);
+                                        UserInfo userInfo = new UserInfo();
+                                        userInfo.login = login;
+                                        userInfo.user = user;
+                                        mListener.onLoginFragment(true, userInfo);
                                     } else {
                                         publicClass.showToast("ورود نا موفق!");
                                         input_passdword.setText(null);
@@ -193,6 +191,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      */
     public interface OnLoginFragmentListener {
         // TODO: Update argument type and name
-        void onLoginFragment(boolean isLogin);
+        void onLoginFragment(boolean isLogin, UserInfo userInfo);
     }
 }

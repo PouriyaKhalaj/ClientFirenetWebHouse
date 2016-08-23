@@ -46,4 +46,32 @@
     <string name="result"> نتیجه: </string>
     <string name="filter_question">فیلتر پرسش ها</string>
     <string name="new_question">پرسش جدید</string>
+
+    <string-array name="priority_arrays">
+        <item>خیلی کم</item>
+        <item>کم</item>
+        <item>متوسط</item>
+        <item>زیاد</item>
+        <item>خیلی زیاد</item>
+    </string-array>
+
+    <string-array name="status_arrays">
+        <item>جدید</item>
+        <item>مشاهده شده</item>
+        <item>در حال بررسی</item>
+        <item>در حال پیاده سازی</item>
+        <item>نیازمند توضیحات بیشتر</item>
+        <item>بررسی نیازمندی جدید</item>
+        <item>در انتظار تایید</item>
+        <item>ارجاع به بخش مربوطه</item>
+        <item>پایان یافته</item>
+        <item>کنسل شده</item>
+    </string-array>
+
+    <string-array name="result_arrays">
+        <item>انتخاب نمایید</item>
+        <item>بررسی نشده</item>
+        <item>مورد تایید</item>
+        <item>عدم تایید</item>
+    </string-array>
 </resources>

@@ -9,8 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -18,8 +16,8 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
-import com.ifirenet.clientfirenetwebhouse.Utils.SharedPreference;
 import com.ifirenet.clientfirenetwebhouse.Utils.User;
+import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,16 +30,15 @@ import com.ifirenet.clientfirenetwebhouse.Utils.User;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private UserInfo userInfo;
 
     private onProfileFragmentListener mListener;
     View view;
-    SharedPreference preference;
     EditText input_firstName, input_lastName, input_email, input_phone, input_cellPhone, input_company;
     CardView card_submit;
 
@@ -61,7 +58,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(Keys.ARG_USER_INFO, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -71,8 +68,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getString(Keys.ARG_USER_INFO);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            userInfo = new Gson()
+                    .fromJson(mParam1, UserInfo.class);
+
         }
     }
 
@@ -87,7 +87,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void init(){
-        preference = new SharedPreference(getActivity());
         input_firstName = (EditText) view.findViewById(R.id.input_profile_firstName);
         input_lastName = (EditText) view.findViewById(R.id.input_profile_lastName);
         input_email = (EditText) view.findViewById(R.id.input_profile_email);
@@ -103,12 +102,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         CardView card_cellPhone = (CardView) view.findViewById(R.id.card_view_profile_phone_number);
         CardView card_company = (CardView) view.findViewById(R.id.card_view_profile_company);
 
-        String user_json = preference.Get(Keys.PREF_APP, Keys.User);
-        if (user_json.equals(Keys.NULL)) {
-            return;
-        }
-        Gson gson = new Gson();
-        User user = gson.fromJson(user_json , User.class);
+
+        User user = userInfo.user;
 
         input_firstName.setText(user.firstName);
         input_lastName.setText(user.lastName);

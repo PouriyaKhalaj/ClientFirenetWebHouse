@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -30,8 +31,10 @@ import com.ifirenet.clientfirenetwebhouse.Adapters.DetailTicketRecycleAdapter;
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Client.CreateTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.DetailTicket;
+import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
+import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
@@ -52,18 +55,15 @@ import java.util.ArrayList;
 public class DetailTicketFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     public static final String ARG_NodeId = "NodeId";
-    public static final String ARG_UserID = "userId";
 
     private int nodeId;
-    private int userId;
-    private int externalStatus = 0;
+    private UserInfo userInfo;
 
     private OnDetailTicketListener mListener;
     private View view;
     private ProgressDialog progressDialog;
     private PublicClass publicClass;
-    private Spinner spinner;
-    private String[] paths = {"اعلام نتیجه بررسی", "بررسی نشده", "مورد تایید", "عدم تایید"};
+    private Spinner sp_customer_result, sp_support_attach, sp_support_status;
 
     public DetailTicketFragment() {
     }
@@ -72,7 +72,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         DetailTicketFragment fragment = new DetailTicketFragment();
         Bundle args = new Bundle();
         args.putString(ARG_NodeId, param1);
-        args.putString(ARG_UserID, param2);
+        args.putString(Keys.ARG_USER_INFO, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,7 +82,9 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             nodeId = getArguments().getInt(ARG_NodeId);
-            userId = getArguments().getInt(ARG_UserID);
+            String u = getArguments().getString(Keys.ARG_USER_INFO);
+            userInfo = new Gson()
+                    .fromJson(u, UserInfo.class);
         }
     }
 
@@ -97,18 +99,29 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
     private void init(){
         publicClass = new PublicClass(getActivity());
-
-
-
-        spinner = (Spinner) view.findViewById(R.id.spinner_detail_ticket_result);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item,paths);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        if (userInfo.user.role.equals(Keys.ROLE_CUSTOMER))
+            initCustomer();
+        else initSupport();
 
         ArrayList<DetailTicket> detailTicketList = getDetailTickets();
+    }
+    private void initCustomer(){
+        CardView cardView = (CardView) view.findViewById(R.id.card_view_support_detail_ticket_update);
+        cardView.setVisibility(View.GONE);
+
+        sp_customer_result = (Spinner) view.findViewById(R.id.spinner_customer_detail_ticket_result);
+        sp_customer_result.setOnItemSelectedListener(this);
+    }
+
+    private void initSupport(){
+        CardView cardView = (CardView) view.findViewById(R.id.card_view_customer_detail_ticket_update);
+        cardView.setVisibility(View.GONE);
+
+        sp_support_attach = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_attach);
+        sp_support_status = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_status);
+
+        sp_support_attach.setOnItemSelectedListener(this);
+        sp_support_status.setOnItemSelectedListener(this);
     }
     private ArrayList<DetailTicket> getDetailTickets(){
         final ArrayList<DetailTicket> detailTicketList = new ArrayList<>();
@@ -190,8 +203,8 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         dialog.setContentView(R.layout.layout_popup_create_ticket);
         final EditText input_title = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_title);
         final EditText input_text = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_text);
-        final EditText input_priority = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_priority);
-        input_priority.setVisibility(View.GONE);
+        Spinner sp_create_priority = (Spinner) dialog.findViewById(R.id.spinner_create_ticket_alert_dialog_priority);
+        sp_create_priority.setVisibility(View.GONE);
         FrameLayout fl_accept_submit = (FrameLayout) dialog.findViewById(R.id.fl_create_ticket_dialog_accept_submit);
         FrameLayout fl_unAccept_submit = (FrameLayout) dialog.findViewById(R.id.fl__create_ticket_dialog_un_accept_submit);
         fl_accept_submit.setOnClickListener(new View.OnClickListener() {
@@ -203,8 +216,8 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                 {
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
-                    CreateTicket ticket = new CreateTicket(title, text, 1, userId);
-                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/CreateThread//" + title + "/" + text + "/" + nodeId + "/" + userId;
+                    CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
+                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + title + "/" + text + "/" + nodeId + "/" + userInfo.user.id;
                     Ion.with(getActivity())
                             .load(fullUrl)
                             .asString()
@@ -282,7 +295,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
-        String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicketExternalStatus/"+ externalStatus + "/" + nodeId + "/" + userId;
+        String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicketExternalStatus/"+ userInfo.login.getUsername()  + "/" + userInfo.login.getUsername() + sp_customer_result.getSelectedItemPosition() + "/" + nodeId + "/" + userInfo.user.id;
         Ion.with(getActivity())
                 .load(fullUrl)
                 .asString()
@@ -296,7 +309,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                             return;
                         }
                         if (result.getHeaders().code() == 200) {
-                            publicClass.showToast("نتیجه " + paths[externalStatus + 1] + " با موفقیت ثبت شد.");
+                            publicClass.showToast("نتیجه " + sp_customer_result.getSelectedItem() + " با موفقیت ثبت شد.");
                         } else publicClass.showToast(result.getHeaders().message());
                     }
                 });
@@ -338,10 +351,17 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()){
+            case R.id.spinner_customer_detail_ticket_result:
+                if (position != 0) {
+                    showAlertDialog("اعلام نتیجه بررسی", parent.getItemAtPosition(position) + " را قبول دارید؟", "بله، ارسال شود", "خیر");
+                }
+                break;
 
-        if (position != 0){
-            externalStatus = position - 1;
-            showAlertDialog("اعلام نتیجه بررسی", paths[position] + " را قبول دارید؟", "بله، ارسال شود", "خیر");
+            case R.id.spinner_support_detail_ticket_attach:
+                break;
+            case R.id.spinner_support_detail_ticket_status:
+                break;
         }
     }
 

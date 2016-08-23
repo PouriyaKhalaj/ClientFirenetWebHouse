@@ -22,22 +22,20 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.ifirenet.clientfirenetwebhouse.Fragments.DetailTicketFragment;
-import com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment;
 import com.ifirenet.clientfirenetwebhouse.Fragments.ProfileFragment;
-import com.ifirenet.clientfirenetwebhouse.Fragments.SupportTicketFragment;
-import com.ifirenet.clientfirenetwebhouse.Fragments.CustomerTicketFragment;
+import com.ifirenet.clientfirenetwebhouse.Fragments.Support.SupportTicketFragment;
+import com.ifirenet.clientfirenetwebhouse.Fragments.Customer.CustomerTicketFragment;
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
-import com.ifirenet.clientfirenetwebhouse.Utils.SharedPreference;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
-import com.ifirenet.clientfirenetwebhouse.Utils.User;
+import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CustomerTicketFragment.OnCustomerTicketFragmentListener,SupportTicketFragment.OnSupportTicketFragmentListener,
-        ProfileFragment.onProfileFragmentListener, LoginFragment.OnLoginFragmentListener, DetailTicketFragment.OnDetailTicketListener{
+        ProfileFragment.onProfileFragmentListener, DetailTicketFragment.OnDetailTicketListener{
     public static final String FRAGMENT_NAME_KEY = "FragmentName";
     public static final String BUNDLE_KEY = "BundleKey";
     public static final String TAG = "LOG";
@@ -47,16 +45,17 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-    SharedPreference preference;
     PublicClass publicClass;
-    User user;
+    UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        preference = new SharedPreference(this);
         publicClass = new PublicClass(this);
+
+        Gson gson = new Gson();
+        userInfo = gson.fromJson(getIntent().getStringExtra(BUNDLE_KEY), UserInfo.class);
 
         // Set a Toolbar to replace the ActionBar.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,9 +93,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
         // We can now look up items within the header if needed
         TextView txt_header_login = (TextView) headerLayout.findViewById(R.id.txt_view_user_name_or_login);
 
-        Gson gson = new Gson();
-        user = gson.fromJson(preference.Get(Keys.PREF_APP, Keys.User), User.class);
-        txt_header_login.setText(user.username);
+        txt_header_login.setText(userInfo.user.username);
 
         Resources res = getResources();
         int color = res.getColor(R.color.green);
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
 
         int imgSize = (int) res.getDimension(R.dimen.img_header_avatar_size);
         Picasso.with(this)
-                .load(Urls.baseURL + user.avatar)
+                .load(Urls.baseURL + userInfo.user.avatar)
                 .resize(imgSize, imgSize)
                 .centerCrop()
                 .placeholder(R.drawable.ic_avatar_person)
@@ -168,17 +165,19 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
     }
 
     private void switchTicketFragment(){
-        if (user.role.equals("Customer"))
+        if (userInfo.user.role.equals(Keys.ROLE_CUSTOMER))
             fragmentClass = CustomerTicketFragment.class;
-        else if (user.role.equals("TicketingManager"))
+        else if (userInfo.user.role.equals(Keys.ROLE_SUPPORT))
             fragmentClass = SupportTicketFragment.class;
-        SetFragment(user.id);
+        SetFragment(userInfo.user.id);
     }
 
     private void SetFragment() {
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putString(Keys.ARG_USER_INFO, getIntent().getStringExtra(BUNDLE_KEY));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -196,12 +195,9 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             Bundle bundle = new Bundle();
             if (fragment instanceof DetailTicketFragment) {
                 bundle.putInt(DetailTicketFragment.ARG_NodeId, id);
-                bundle.putInt(DetailTicketFragment.ARG_UserID, user.id);
             }
-            else if (fragment instanceof SupportTicketFragment)
-                bundle.putInt(SupportTicketFragment.ARG_USER_ID, id);
-            else if (fragment instanceof CustomerTicketFragment)
-                bundle.putInt(CustomerTicketFragment.ARG_USER_ID, id);
+
+            bundle.putString(Keys.ARG_USER_INFO, getIntent().getStringExtra(BUNDLE_KEY));
             fragment.setArguments(bundle);
         } catch (Exception e) {
             e.printStackTrace();
@@ -295,11 +291,6 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
 
     @Override
     public void onProfileFragment() {
-
-    }
-
-    @Override
-    public void onLoginFragment(boolean isLogin) {
 
     }
 
