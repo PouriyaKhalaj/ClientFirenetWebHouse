@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -147,7 +148,7 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
             for (int i = 0; i < array.length(); ++i) {
                 JSONObject object = array.getJSONObject(i);
 
-                Gson gson = new GsonBuilder().create();
+                Gson gson = new Gson();
                 allTicketList.add(gson.fromJson(object.toString(), SupportTicket.class));
             }
             progressDialog.dismiss();
@@ -195,13 +196,20 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
         dialog.setContentView(R.layout.layout_popup_support_ticket_filter);
 
         final EditText input_trackingCode = (EditText) dialog.findViewById(R.id.input_support_alert_dialog_tracking_code);
-        final EditText input_status = (EditText) dialog.findViewById(R.id.input_support_alert_dialog_status);
-        final EditText input_priority = (EditText) dialog.findViewById(R.id.input_support_alert_dialog_priority);
-        final EditText input_result = (EditText) dialog.findViewById(R.id.input_support_alert_dialog_result);
+        final Spinner sp_result = (Spinner) dialog.findViewById(R.id.spinner_support_alert_dialog_filter_result);
+        final Spinner sp_priority = (Spinner) dialog.findViewById(R.id.spinner_support_alert_dialog_filter_priority);
+        final Spinner sp_status = (Spinner) dialog.findViewById(R.id.spinner_support_alert_dialog_filter_status);
+
+
+
         if (objectFilter != null){
             if (objectFilter instanceof SupportTicketFilter){
                 SupportTicketFilter filter = (SupportTicketFilter) objectFilter;
-                input_trackingCode.setText(String.valueOf(filter.getTrackingCode()));
+                if (filter.getTrackingCode() != -1)
+                    input_trackingCode.setText(String.valueOf(filter.getTrackingCode()));
+                sp_priority.setSelection(filter.getPriority());
+                sp_result.setSelection(filter.getResult());
+                sp_status.setSelection(filter.getStatus());
             }
         }
         FrameLayout fl_accept_submit = (FrameLayout) dialog.findViewById(R.id.fl_support_dialog_accept_submit);
@@ -210,22 +218,32 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
         fl_accept_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(input_trackingCode.getText())) {
+
+                int n = sp_priority.getSelectedItemPosition() + sp_result.getSelectedItemPosition() + sp_status.getSelectedItemPosition();
+                if (!TextUtils.isEmpty(input_trackingCode.getText()) || n != 0) {
                     ArrayList<Object> objectList = new ArrayList<Object>();
                     for (int i = 0; i < allTicketList.size(); i++) {
                         if (allTicketList.get(i) instanceof SupportTicket) {
                             SupportTicket supportTicket = (SupportTicket) allTicketList.get(i);
-                            int code = Integer.parseInt(input_trackingCode.getText().toString());
-                            String result = input_result.getText().toString();
-                            String priority = input_priority.getText().toString();
-                            String status = input_status.getText().toString();
+                            int code = -1;
+                            if (!TextUtils.isEmpty(input_trackingCode.getText()))
+                                code = Integer.parseInt(input_trackingCode.getText().toString());
+                            String result = sp_result.getSelectedItem().toString();
+                            String priority = sp_priority.getSelectedItem().toString();
+                            String status = sp_status.getSelectedItem().toString();
                             if (supportTicket.trackingCode == code || supportTicket.result.equals(result)
                                     || supportTicket.priority.equals(priority) || supportTicket.status.equals(status)) {
                                 objectList.add(supportTicket);
                             }
-                            SupportTicketFilter filter = new SupportTicketFilter();
-                            filter.setTrackingCode(code);
-                            objectFilter = filter;
+
+                                SupportTicketFilter filter = new SupportTicketFilter();
+
+                                filter.setTrackingCode(code);
+                                filter.setPriority(sp_priority.getSelectedItemPosition());
+                                filter.setResult(sp_result.getSelectedItemPosition());
+                                filter.setStatus(sp_status.getSelectedItemPosition());
+                                objectFilter = filter;
+
                         }
                     }
                     if (item != null) {
@@ -265,6 +283,8 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_support_ticket_list_fragment, menu);
+        MenuItem menuFilter = menu.findItem(R.id.action_search);
+        tintMenuIcon(getActivity(), menuFilter, android.R.color.white);
         super.onCreateOptionsMenu(menu,inflater);
     }
 

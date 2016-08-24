@@ -59,6 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tracking_code"
+                        android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView
@@ -80,6 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/date"
+                        android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView
@@ -99,6 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/status"
+                        android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView

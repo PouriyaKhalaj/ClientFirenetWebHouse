@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             fragment = (Fragment) fragmentClass.newInstance();
             Bundle bundle = new Bundle();
             bundle.putString(Keys.ARG_USER_INFO, getIntent().getStringExtra(BUNDLE_KEY));
+            fragment.setArguments(bundle);
         } catch (Exception e) {
             e.printStackTrace();
         }

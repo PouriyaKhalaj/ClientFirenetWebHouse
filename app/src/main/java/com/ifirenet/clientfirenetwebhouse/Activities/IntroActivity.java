@@ -44,14 +44,14 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        //checkApkVersion();
+        checkApkVersion();
 
         fragmentClass = LoginFragment.class;
         SetFragment();
     }
 
     private void checkApkVersion() {
-        String fullUrl = Urls.checkVersinURL;
+        String fullUrl = Urls.baseURL + Urls.checkVersionURL;
         Ion.with(this)
                 .load(fullUrl)
                 .asString()

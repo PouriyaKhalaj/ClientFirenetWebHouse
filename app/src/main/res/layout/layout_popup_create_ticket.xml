@@ -67,14 +67,26 @@
                     android:hint="متن" />
             </android.support.design.widget.TextInputLayout>
 
-            <Spinner
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_create_ticket_alert_dialog_priority"
                 android:layout_margin="@dimen/card_content_margin"
-                android:entries="@array/priority_arrays"
-                android:layout_weight="2"
-                android:padding="@dimen/card_content_margin" />
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اولویت"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_create_ticket_alert_dialog_priority"
+                    android:entries="@array/priority_arrays"/>
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

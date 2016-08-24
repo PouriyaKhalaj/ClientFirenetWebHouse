@@ -41,45 +41,73 @@
                     android:hint="کد رهگیری"
                     android:maxLength="30" />
             </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_content_margin"
-                android:layout_weight="2"
-                android:textColor="#ffffff">
-                <EditText android:id="@+id/input_support_alert_dialog_status"
-                    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/card_content_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="وضعیت"
-                    android:maxLength="30" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+                    android:text="نتیجه بررسی"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_support_alert_dialog_filter_result"
+                    android:entries="@array/result_arrays"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_content_margin"
-                android:layout_weight="2"
-                android:textColor="#ffffff">
-                <EditText android:id="@+id/input_support_alert_dialog_result"
-                    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/card_content_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="نتیجه"
-                    android:maxLength="30" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+                    android:text="وضعیت عمومی"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_support_alert_dialog_filter_status"
+                    android:entries="@array/status_arrays"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_content_margin"
-                android:layout_weight="2"
-                android:textColor="#ffffff">
-                <EditText android:id="@+id/input_support_alert_dialog_priority"
-                    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/card_content_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="اولویت"
-                    android:maxLength="30" />
-            </android.support.design.widget.TextInputLayout>
+                    android:text="اولویت"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_support_alert_dialog_filter_priority"
+                    android:entries="@array/priority_arrays"/>
+            </LinearLayout>
+
+
+
+
+
             </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView

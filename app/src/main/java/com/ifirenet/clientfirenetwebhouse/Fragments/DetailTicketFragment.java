@@ -34,6 +34,7 @@ import com.ifirenet.clientfirenetwebhouse.Utils.DetailTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
+import com.ifirenet.clientfirenetwebhouse.Utils.User;
 import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -44,6 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -64,6 +68,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     private ProgressDialog progressDialog;
     private PublicClass publicClass;
     private Spinner sp_customer_result, sp_support_attach, sp_support_status;
+    List<User> attachList;
 
     public DetailTicketFragment() {
     }
@@ -93,7 +98,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_detail_ticket, container, false);
+        view = inflater.inflate(R.layout.fragment_detail_tickets, container, false);
         init();
         return view;
     }
@@ -106,6 +111,9 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         ArrayList<DetailTicket> detailTicketList = getDetailTickets();
     }
     private void initCustomer(){
+        //LinearLayout layout = (LinearLayout) view.findViewById(R.id.ll_support_detail_ticket_update);
+        //layout.setVisibility(View.GONE);
+
         CardView cardView = (CardView) view.findViewById(R.id.card_view_support_detail_ticket_update);
         cardView.setVisibility(View.GONE);
 
@@ -114,22 +122,126 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void initSupport(){
+        //LinearLayout layout = (LinearLayout) view.findViewById(R.id.ll_customer_detail_ticket_update);
+        //layout.setVisibility(View.GONE);
+
         CardView cardView = (CardView) view.findViewById(R.id.card_view_customer_detail_ticket_update);
         cardView.setVisibility(View.GONE);
 
-        sp_support_attach = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_attach);
-        sp_support_status = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_status);
 
+        CardView card_view_submit_status = (CardView) view.findViewById(R.id.card_view_support_detail_ticket_update_submit);
+
+        initSpinner();
+        card_view_submit_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sp_support_status.getSelectedItemPosition() == 0){
+                    publicClass.showToast("وضعیت را انتخاب نمایید");
+                    return;
+                }
+                progressDialog = ProgressDialog.show(getActivity(), null,
+                        "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
+
+                int pos = sp_support_attach.getSelectedItemPosition();
+                String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicket/"
+                        + userInfo.login.getUsername()  + "/"
+                        + userInfo.login.getPassword() + "/"
+                        + sp_support_status.getSelectedItemPosition() + 1
+                        + "/" + attachList.get(pos).id
+                        + "/" + nodeId + "/"  + userInfo.user.id;
+                Ion.with(getActivity())
+                        .load(fullUrl)
+                        .asString()
+                        .withResponse()
+                        .setCallback(new FutureCallback<Response<String>>() {
+                            @Override
+                            public void onCompleted(Exception e, Response<String> result) {
+                                progressDialog.dismiss();
+                                if (e != null){
+                                    publicClass.showToast("خطا در دریافت اطلاعات!");
+                                    return;
+                                }
+                                if (result.getHeaders().code() == 200) {
+                                    try {
+                                        JSONObject object = new JSONObject(result.getResult());
+                                        if (object.has("text"))
+                                            if (object.getBoolean("text")){
+                                                publicClass.showToast("با موفقیت ثبت شد.");
+                                                getDetailTickets();
+                                            }
+
+                                    } catch (JSONException e1) {
+                                        e1.printStackTrace();
+                                        publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
+                                    }
+                                } else publicClass.showToast(result.getHeaders().message());
+                            }
+                        });
+            }
+        });
         sp_support_attach.setOnItemSelectedListener(this);
         sp_support_status.setOnItemSelectedListener(this);
     }
+    private void initSpinner(){
+        sp_support_attach = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_attach);
+        sp_support_status = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_status);
+
+        final List<String> attachUsers = new ArrayList<>();
+
+        String fullUrl = Urls.baseURL + "ClientPortalService.svc/GetUsersOfRole/" + Keys.ROLE_SUPPORT;
+        Ion.with(getActivity())
+                .load(fullUrl)
+                .asString()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<String>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<String> result) {
+                        if (e != null){
+                            publicClass.showToast("خطا در دریافت اطلاعات!");
+                            return;
+                        }
+                        if (result.getHeaders().code() == 200) {
+                            attachList = new ArrayList<>();
+                            try {
+                                JSONArray array = new JSONArray(result.getResult());
+                                for (int i = 0; i < array.length(); i++){
+                                    JSONObject object = array.getJSONObject(i);
+                                    Gson gson = new Gson();
+                                    User user = gson.fromJson(object.toString(), User.class);
+                                    attachList.add(user);
+                                }
+                                Collections.sort(attachList, new Comparator<User>() {
+                                    @Override
+                                    public int compare(User u1, User u2) {
+                                        return u2.firstName.compareTo(u1.firstName);
+                                    }
+                                });
+                                for (int i = 0; i < attachList.size(); i++)
+                                    attachUsers.add(attachList.get(i).firstName + " " + attachList.get(i).lastName);
+
+                                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
+                                        android.R.layout.simple_spinner_item, attachUsers);
+                                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                sp_support_attach.setAdapter(dataAdapter);
+
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
+                        } else publicClass.showToast(result.getHeaders().message());
+                    }
+                });
+
+
+
+    }
+
     private ArrayList<DetailTicket> getDetailTickets(){
         final ArrayList<DetailTicket> detailTicketList = new ArrayList<>();
 
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
-        String fullUrl = Urls.baseURL + "ClientPortalService.svc/GetTicketThreads/" + nodeId;
+        String fullUrl = Urls.baseURL + "ClientPortalService.svc/GetTicketThreads/" + userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/" + nodeId;
         Ion.with(getActivity())
                 .load(fullUrl)
                 .asString()
@@ -217,7 +329,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
                     CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
-                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + title + "/" + text + "/" + nodeId + "/" + userInfo.user.id;
+                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/"  + title + "/" + text + "/" + nodeId + "/" + userInfo.user.id;
                     Ion.with(getActivity())
                             .load(fullUrl)
                             .asString()
@@ -295,7 +407,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
-        String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicketExternalStatus/"+ userInfo.login.getUsername()  + "/" + userInfo.login.getUsername() + sp_customer_result.getSelectedItemPosition() + "/" + nodeId + "/" + userInfo.user.id;
+        String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicketExternalStatus/"+ userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/" + sp_customer_result.getSelectedItemPosition() + "/" + nodeId + "/" + userInfo.user.id;
         Ion.with(getActivity())
                 .load(fullUrl)
                 .asString()

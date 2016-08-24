@@ -5,19 +5,19 @@ package com.ifirenet.clientfirenetwebhouse.Utils.Support;
  */
 public class SupportTicketFilter {
     private int trackingCode;
-    public String result;
-    public String status;
-    public String priority;
+    private int result;
+    private int status;
+    private int priority;
 
     public void setTrackingCode(int trackingCode) { this.trackingCode = trackingCode; }
     public int getTrackingCode() {return this.trackingCode; }
 
-    public void setResult(String result){this.result = result; }
-    public String getResult(){return this.result; }
+    public void setResult(int result){this.result = result; }
+    public int getResult(){return this.result; }
 
-    public void setPriority(String priority){ this.priority = priority;}
-    public String getPriority(){return this.priority;}
+    public void setPriority(int priority){ this.priority = priority;}
+    public int getPriority(){return this.priority;}
 
-    public void setStatus(String status){ this.status = status;}
-    public String getStatus(){ return this.status;}
+    public void setStatus(int status){ this.status = status;}
+    public int getStatus(){ return this.status;}
 }

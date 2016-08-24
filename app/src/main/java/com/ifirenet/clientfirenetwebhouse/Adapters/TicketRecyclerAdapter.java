@@ -3,6 +3,7 @@ package com.ifirenet.clientfirenetwebhouse.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,12 +79,16 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             vhst.getTitle().setText(supportTicket.title);
             vhst.getDate().setText(supportTicket.createDate);
             vhst.getTrackingCode().setText(String.valueOf(supportTicket.trackingCode));
+
             vhst.getStatus().setText(String.valueOf(supportTicket.status));
-            vhst.getStatus().setTextColor(Color.parseColor(supportTicket.statusColor));
+            if (!TextUtils.isEmpty(supportTicket.statusColor))
+                vhst.getStatus().setTextColor(Color.parseColor(supportTicket.statusColor));
             vhst.getPriority().setText(supportTicket.priority);
-            vhst.getPriority().setTextColor(Color.parseColor(supportTicket.priorityColor));
+            if (!TextUtils.isEmpty(supportTicket.priorityColor))
+                vhst.getPriority().setTextColor(Color.parseColor(supportTicket.priorityColor));
             vhst.getResult().setText(supportTicket.result);
-            vhst.getResult().setTextColor(Color.parseColor(supportTicket.resultColor));
+            if (!TextUtils.isEmpty(supportTicket.resultColor))
+                vhst.getResult().setTextColor(Color.parseColor(supportTicket.resultColor));
 
             vhst.getItem().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,7 +106,8 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             vhct.getDate().setText(clientTicket.createDate);
             vhct.getTrackingCode().setText(String.valueOf(clientTicket.trackingCode));
             vhct.getStatus().setText(String.valueOf(clientTicket.status));
-            vhct.getStatus().setTextColor(Color.parseColor(clientTicket.statusColor));
+            if (!TextUtils.isEmpty(clientTicket.statusColor))
+                vhct.getStatus().setTextColor(Color.parseColor(clientTicket.statusColor));
 
             vhct.getItem().setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -48,6 +48,7 @@
     <string name="new_question">پرسش جدید</string>
 
     <string-array name="priority_arrays">
+        <item>انتخاب نمایید</item>
         <item>خیلی کم</item>
         <item>کم</item>
         <item>متوسط</item>
@@ -56,6 +57,7 @@
     </string-array>
 
     <string-array name="status_arrays">
+        <item>انتخاب نمایید</item>
         <item>جدید</item>
         <item>مشاهده شده</item>
         <item>در حال بررسی</item>
