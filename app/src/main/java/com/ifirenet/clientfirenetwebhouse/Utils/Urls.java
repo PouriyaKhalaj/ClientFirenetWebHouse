@@ -5,5 +5,5 @@ package com.ifirenet.clientfirenetwebhouse.Utils;
  */
 public class Urls {
     static public String baseURL = "http://client.ifirenet.com/";
-    static public String checkVersionURL = "MobileApp/checkVersion";
+    static public String checkVersionURL = "Mobile-App/checkVersion";
 }

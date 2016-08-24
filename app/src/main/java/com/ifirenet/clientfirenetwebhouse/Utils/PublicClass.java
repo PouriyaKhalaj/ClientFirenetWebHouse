@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.view.Gravity;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -69,6 +72,20 @@ public class PublicClass {
         Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    public void showSnackBar(String msg, final View coordinatorLayout){
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, msg, Snackbar.LENGTH_INDEFINITE)
+                .setAction("قبول", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                      //  Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
+                      //  snackbar1.show();
+                    }
+                });
+
+        snackbar.show();
     }
 
     public void hideKeyboard(EditText input, Activity activity){

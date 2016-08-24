@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.webkit.URLUtil;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +31,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ifirenet.clientfirenetwebhouse.Adapters.DetailTicketRecycleAdapter;
 import com.ifirenet.clientfirenetwebhouse.R;
-import com.ifirenet.clientfirenetwebhouse.Utils.Client.CreateTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.DetailTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
@@ -47,14 +45,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 /**
@@ -67,7 +61,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
 
     public static final String ARG_NodeId = "NodeId";
 
-    private int nodeId;
+    private String nodeId;
     private UserInfo userInfo;
 
     private OnDetailTicketListener mListener;
@@ -93,7 +87,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            nodeId = getArguments().getInt(ARG_NodeId);
+            nodeId = getArguments().getString(ARG_NodeId);
             String u = getArguments().getString(Keys.ARG_USER_INFO);
             userInfo = new Gson()
                     .fromJson(u, UserInfo.class);
@@ -356,7 +350,6 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                 {
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
-                    CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
                     String baseUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/";
                     String requestURL = String.format( baseUrl + "%s/%s/%s/%s", Uri.encode(title), Uri.encode(text), Uri.encode(String.valueOf(nodeId)), Uri.encode(String.valueOf(userInfo.user.id)));
 

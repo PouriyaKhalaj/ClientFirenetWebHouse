@@ -1,10 +1,18 @@
 package com.ifirenet.clientfirenetwebhouse.Activities;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
+import android.os.PowerManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +22,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
@@ -29,6 +38,12 @@ import com.koushikdutta.ion.ProgressCallback;
 import com.koushikdutta.ion.Response;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class IntroActivity extends AppCompatActivity implements LoginFragment.OnLoginFragmentListener {
 
@@ -161,29 +176,23 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
             }
         });
         dialog.show();
-
     }
 
     private void downloadApp(){
-        Ion.with(this)
-                .load(versionList.apkLink)
-// can also use a custom callback
-                .progress(new ProgressCallback() {
-                    @Override
-                public void onProgress(long downloaded, long total) {
-                    System.out.println("" + downloaded + " / " + total);
-                }
-                })
-                .write(new File("/sdcard/ClientFirenetWebHouse.apk"))
-                .setCallback(new FutureCallback<File>() {
-                    @Override
-                    public void onCompleted(Exception e, File file) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                });
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(versionList.apkLink));
+        request.setDescription("ifirenet.com");
+        request.setTitle("Web House Client Portal");
+// in order for this if to run, you must use the android 3.2 to compile your app
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        }
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "name-of-the-file.ext");
+
+// get download service and enqueue file
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+        finish();
     }
 
     @Override

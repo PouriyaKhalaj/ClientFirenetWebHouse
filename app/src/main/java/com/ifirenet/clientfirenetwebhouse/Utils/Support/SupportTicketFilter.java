@@ -4,13 +4,13 @@ package com.ifirenet.clientfirenetwebhouse.Utils.Support;
  * Created by Pouriya.kh on 8/16/2016.
  */
 public class SupportTicketFilter {
-    private int trackingCode;
+    private String trackingCode;
     private int result;
     private int status;
     private int priority;
 
-    public void setTrackingCode(int trackingCode) { this.trackingCode = trackingCode; }
-    public int getTrackingCode() {return this.trackingCode; }
+    public void setTrackingCode(String trackingCode) { this.trackingCode = trackingCode; }
+    public String getTrackingCode() {return this.trackingCode; }
 
     public void setResult(int result){this.result = result; }
     public int getResult(){return this.result; }

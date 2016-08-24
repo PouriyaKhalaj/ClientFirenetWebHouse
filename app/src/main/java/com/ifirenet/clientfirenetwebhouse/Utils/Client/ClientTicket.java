@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class ClientTicket {
     @SerializedName("trackingCode")
-    public int trackingCode;
+    public String trackingCode;
 
     @SerializedName("title")
     public String title;
@@ -19,7 +19,7 @@ public class ClientTicket {
     public String status;
 
     @SerializedName("nodeID")
-    public int nodeID;
+    public String nodeID;
 
     @SerializedName("company")
     public String company;
@@ -31,7 +31,7 @@ public class ClientTicket {
     public String customerFirstName;
 
     @SerializedName("customerID")
-    public int customerID;
+    public String customerID;
 
     @SerializedName("customerLastName")
     public String customerLastName;

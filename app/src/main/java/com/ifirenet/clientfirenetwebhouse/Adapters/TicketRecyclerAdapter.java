@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Client.ClientTicket;
+import com.ifirenet.clientfirenetwebhouse.Utils.HexColorValidator;
 import com.ifirenet.clientfirenetwebhouse.Utils.Support.SupportTicket;
 import com.ifirenet.clientfirenetwebhouse.Viewholders.ViewHolderClientTicket;
 import com.ifirenet.clientfirenetwebhouse.Viewholders.ViewHolderSupportTicket;
@@ -75,19 +76,20 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void configureViewHolderSupportTicket(ViewHolderSupportTicket vhst, int position) {
         final SupportTicket supportTicket= (SupportTicket) getItem(position);
+        HexColorValidator validator = new HexColorValidator();
         if (supportTicket != null) {
             vhst.getTitle().setText(supportTicket.title);
             vhst.getDate().setText(supportTicket.createDate);
             vhst.getTrackingCode().setText(String.valueOf(supportTicket.trackingCode));
 
             vhst.getStatus().setText(String.valueOf(supportTicket.status));
-            if (!TextUtils.isEmpty(supportTicket.statusColor))
+            if (validator.validate(supportTicket.statusColor))
                 vhst.getStatus().setTextColor(Color.parseColor(supportTicket.statusColor));
             vhst.getPriority().setText(supportTicket.priority);
-            if (!TextUtils.isEmpty(supportTicket.priorityColor))
+            if (validator.validate(supportTicket.priorityColor))
                 vhst.getPriority().setTextColor(Color.parseColor(supportTicket.priorityColor));
             vhst.getResult().setText(supportTicket.result);
-            if (!TextUtils.isEmpty(supportTicket.resultColor))
+            if (validator.validate(supportTicket.resultColor))
                 vhst.getResult().setTextColor(Color.parseColor(supportTicket.resultColor));
 
             vhst.getItem().setOnClickListener(new View.OnClickListener() {
@@ -101,12 +103,13 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void configureViewHolderClientTicket(ViewHolderClientTicket vhct, int position) {
         final ClientTicket clientTicket= (ClientTicket) getItem(position);
+        HexColorValidator validator = new HexColorValidator();
         if (clientTicket != null) {
             vhct.getTitle().setText(clientTicket.title);
             vhct.getDate().setText(clientTicket.createDate);
             vhct.getTrackingCode().setText(String.valueOf(clientTicket.trackingCode));
             vhct.getStatus().setText(String.valueOf(clientTicket.status));
-            if (!TextUtils.isEmpty(clientTicket.statusColor))
+            if (validator.validate(clientTicket.statusColor))
                 vhct.getStatus().setTextColor(Color.parseColor(clientTicket.statusColor));
 
             vhct.getItem().setOnClickListener(new View.OnClickListener() {

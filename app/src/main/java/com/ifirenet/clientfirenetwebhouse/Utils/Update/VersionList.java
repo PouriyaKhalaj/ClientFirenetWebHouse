@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class VersionList {
 
-    @SerializedName("apkLink ")
+    @SerializedName("apkLink")
     public String apkLink;
 
     @SerializedName("version")

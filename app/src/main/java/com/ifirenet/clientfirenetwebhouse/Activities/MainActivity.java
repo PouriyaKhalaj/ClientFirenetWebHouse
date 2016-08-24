@@ -137,8 +137,6 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
         // Create a new fragment and specify the planet to show based on
         // position
         switch (menuItem.getItemId()) {
-            case R.id.counter:
-                break;
             case R.id.profile:
                 fragmentClass = ProfileFragment.class;
                 SetFragment();
@@ -146,16 +144,6 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             case R.id.ticketing:
                 switchTicketFragment();
                 break;
-            case R.id.questions:
-                break;
-            case R.id.help:
-                break;
-            case R.id.regulation:
-                break;
-            case R.id.contacts:
-                break;
-            default:
-
         }
 
         // Highlight the selected item, update the title, and close the drawer
@@ -169,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             fragmentClass = CustomerTicketFragment.class;
         else if (userInfo.user.role.equals(Keys.ROLE_SUPPORT))
             fragmentClass = SupportTicketFragment.class;
-        SetFragment(userInfo.user.id);
+        SetFragment();
     }
 
     private void SetFragment() {
@@ -189,13 +177,13 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
                 .addToBackStack(null)
                 .commit();
     }
-    private void SetFragment(int id) {
+    private void SetFragment(String id) {
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             Bundle bundle = new Bundle();
             if (fragment instanceof DetailTicketFragment) {
-                bundle.putInt(DetailTicketFragment.ARG_NodeId, id);
+                bundle.putString(DetailTicketFragment.ARG_NodeId, id);
             }
 
             bundle.putString(Keys.ARG_USER_INFO, getIntent().getStringExtra(BUNDLE_KEY));
@@ -279,13 +267,13 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
     }
 
     @Override
-    public void onCustomerTicket(int nodeId) {
+    public void onCustomerTicket(String nodeId) {
         fragmentClass = DetailTicketFragment.class;
         SetFragment(nodeId);
     }
 
     @Override
-    public void onSupportTicket(int nodeId) {
+    public void onSupportTicket(String nodeId) {
         fragmentClass = DetailTicketFragment.class;
         SetFragment(nodeId);
     }

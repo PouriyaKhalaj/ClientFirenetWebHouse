@@ -156,8 +156,8 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
                 Gson gson = new Gson();
                 allTicketList.add(gson.fromJson(object.toString(), SupportTicket.class));
             }
-            progressDialog.dismiss();
             displayData(allTicketList);
+            progressDialog.dismiss();
         } catch (JSONException e1) {
             progressDialog.dismiss();
             e1.printStackTrace();
@@ -210,8 +210,8 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
         if (objectFilter != null){
             if (objectFilter instanceof SupportTicketFilter){
                 SupportTicketFilter filter = (SupportTicketFilter) objectFilter;
-                if (filter.getTrackingCode() != -1)
-                    input_trackingCode.setText(String.valueOf(filter.getTrackingCode()));
+
+                input_trackingCode.setText(filter.getTrackingCode());
                 sp_priority.setSelection(filter.getPriority());
                 sp_result.setSelection(filter.getResult());
                 sp_status.setSelection(filter.getStatus());
@@ -230,13 +230,12 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
                     for (int i = 0; i < allTicketList.size(); i++) {
                         if (allTicketList.get(i) instanceof SupportTicket) {
                             SupportTicket supportTicket = (SupportTicket) allTicketList.get(i);
-                            int code = -1;
-                            if (!TextUtils.isEmpty(input_trackingCode.getText()))
-                                code = Integer.parseInt(input_trackingCode.getText().toString());
+
+                            String code = input_trackingCode.getText().toString();
                             String result = sp_result.getSelectedItem().toString();
                             String priority = sp_priority.getSelectedItem().toString();
                             String status = sp_status.getSelectedItem().toString();
-                            if (supportTicket.trackingCode == code || supportTicket.result.equals(result)
+                            if (supportTicket.trackingCode.equals(code) || supportTicket.result.equals(result)
                                     || supportTicket.priority.equals(priority) || supportTicket.status.equals(status)) {
                                 objectList.add(supportTicket);
                             }
@@ -324,7 +323,7 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
     @Override
     public void onItemClick(Object object) {
             SupportTicket supportTicket = (SupportTicket) object;
-            int nodeId = supportTicket.nodeID;
+            String nodeId = supportTicket.nodeID;
             mListener.onSupportTicket(nodeId);
     }
 
@@ -341,6 +340,6 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
      */
     public interface OnSupportTicketFragmentListener {
         // TODO: Update argument type and name
-        void onSupportTicket(int nodeId);
+        void onSupportTicket(String nodeId);
     }
 }

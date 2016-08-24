@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -32,12 +33,10 @@ import com.ifirenet.clientfirenetwebhouse.Adapters.TicketRecyclerAdapter;
 import com.ifirenet.clientfirenetwebhouse.Links.Tickets;
 import com.ifirenet.clientfirenetwebhouse.R;
 import com.ifirenet.clientfirenetwebhouse.Utils.Client.ClientTicketFilter;
-import com.ifirenet.clientfirenetwebhouse.Utils.Client.CreateTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.Client.ClientTicket;
 import com.ifirenet.clientfirenetwebhouse.Utils.Keys;
 import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
 import com.ifirenet.clientfirenetwebhouse.Utils.Support.SupportTicket;
-import com.ifirenet.clientfirenetwebhouse.Utils.Support.SupportTicketFilter;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
 import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
@@ -69,6 +68,7 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     Object objectFilter;
     PublicClass publicClass;
     Spinner sp_create_priority;
+    private CoordinatorLayout coordinatorLayout;
 
     private UserInfo userInfo;
 
@@ -116,6 +116,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     }
 
     private void initRecyclerView() {
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id
+                .cl_main_content);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_question_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -125,7 +127,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     private void createItemList() {
         boolean isConnect = publicClass.isConnection();
         if (!isConnect){
-            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            //publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید" , coordinatorLayout);
             return;
         }
         progressDialog = ProgressDialog.show(getActivity(), null,
@@ -144,12 +147,16 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     public void onCompleted(Exception e, Response<String> result) {
                         progressDialog.dismiss();
                         if (e != null){
-                            publicClass.showToast("خطا در دریافت اطلاعات!");
+                           // publicClass.showToast("خطا در دریافت اطلاعات!");
+                            publicClass.showSnackBar("خطا در دریافت اطلاعات!", coordinatorLayout);
                             return;
                         }
                         if (result.getHeaders().code() == 200) {
                             setClientTickets(result.getResult());
-                        } else publicClass.showToast(result.getHeaders().message());
+                        } else {
+                            //publicClass.showToast(result.getHeaders().message());
+                            publicClass.showSnackBar(result.getHeaders().message(),  coordinatorLayout);
+                        }
                     }
                 });
     }
@@ -215,9 +222,6 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
             if (objectFilter instanceof ClientTicketFilter){
                 ClientTicketFilter filter = (ClientTicketFilter) objectFilter;
                 input_trackingCode.setText(filter.getTrackingCode());
-            } else if (objectFilter instanceof SupportTicketFilter){
-                SupportTicketFilter filter = (SupportTicketFilter) objectFilter;
-                input_trackingCode.setText(String.valueOf(filter.getTrackingCode()));
             }
         }
         FrameLayout fl_accept_submit = (FrameLayout) dialog.findViewById(R.id.fl_dialog_accept_submit);
@@ -231,7 +235,7 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     for (int i = 0; i < allTicketList.size(); i++) {
                         if (allTicketList.get(i) instanceof ClientTicket) {
                             ClientTicket clientTicket = (ClientTicket) allTicketList.get(i);
-                            int code = Integer.parseInt(input_trackingCode.getText().toString());
+                            String code = input_trackingCode.getText().toString();
                             if (clientTicket.trackingCode == code) {
                                 objectList.add(clientTicket);
                             }
@@ -247,7 +251,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     // recyclerView.getAdapter().notifyDataSetChanged();
                     dialog.dismiss();
                 } else {
-                    publicClass.showToast("جهت جستجو اطلاعات خواسته شده را پر نمایید");
+                   // publicClass.showToast("جهت جستجو اطلاعات خواسته شده را پر نمایید");
+                    publicClass.showSnackBar("جهت جستجو اطلاعات خواسته شده را پر نمایید",  coordinatorLayout);
                 }
             }
         });
@@ -277,7 +282,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     public void showCreateTicketDialog(){
         boolean isConnect = publicClass.isConnection();
         if (!isConnect){
-            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+           //publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید", coordinatorLayout);
             return;
         }
         final Dialog dialog = new Dialog(getActivity());
@@ -304,7 +310,7 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     }
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
-                    CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
+
                     String baseUrl = Urls.baseURL + "ClientPortalService.svc/CreateTicket/" + userInfo.login.getUsername() + "/" + userInfo.login.getPassword() + "/";
                     String requestURL = String.format( baseUrl + "%s/%s/%s/%s", Uri.encode(title), Uri.encode(text), Uri.encode(String.valueOf(priority)), Uri.encode(String.valueOf(userInfo.user.id)));
 
@@ -317,7 +323,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                                 public void onCompleted(Exception e, Response<String> result) {
                                     progressDialog.dismiss();
                                     if (e != null){
-                                        publicClass.showToast("خطا در دریافت اطلاعات! "+ e.getMessage());
+                                       // publicClass.showToast("خطا در دریافت اطلاعات! "+ e.getMessage());
+                                        publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e.getMessage(), coordinatorLayout);
                                         return;
                                     }
                                     if (result.getHeaders().code() == 200) {
@@ -325,19 +332,26 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                                             JSONObject object = new JSONObject(result.getResult());
                                             if (object.has("text"))
                                                 if (object.getBoolean("text")){
-                                                    publicClass.showToast("با موفقیت ارسال شد");
+                                                   // publicClass.showToast("با موفقیت ارسال شد");
+                                                    publicClass.showSnackBar("با موفقیت ارسال شد", coordinatorLayout);
                                                     createItemList();
                                                 }
 
                                         } catch (JSONException e1) {
                                             e1.printStackTrace();
-                                            publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
+                                          //  publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
+                                            publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e1.getMessage(), coordinatorLayout);
                                         }
-                                    } else publicClass.showToast("خطا در دریافت اطلاعات! ");
+                                    } else {
+                                        //publicClass.showToast("خطا در دریافت اطلاعات! ");
+                                        publicClass.showSnackBar("خطا در دریافت اطلاعات! ", coordinatorLayout);
+                                    }
                                 }
                             });
                     dialog.dismiss();
-                } else publicClass.showToast("اطلاعات خواسته شده را پر نمایید");
+                } else{
+                    publicClass.showToast("اطلاعات خواسته شده را پر نمایید");
+                }
             }
         });
         fl_unAccept_submit.setOnClickListener(new View.OnClickListener() {
@@ -390,11 +404,11 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     public void onItemClick(Object object) {
         if (object instanceof ClientTicket){
             ClientTicket clientTicket = (ClientTicket) object;
-            int nodeId = clientTicket.nodeID;
+            String nodeId = clientTicket.nodeID;
             mListener.onCustomerTicket(nodeId);
         } else if(object instanceof SupportTicket){
             SupportTicket supportTicket = (SupportTicket) object;
-            int nodeId = supportTicket.nodeID;
+            String nodeId = supportTicket.nodeID;
             mListener.onCustomerTicket(nodeId);
         }
     }
@@ -421,6 +435,6 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
      */
     public interface OnCustomerTicketFragmentListener {
         // TODO: Update argument type and name
-        void onCustomerTicket(int nodeId);
+        void onCustomerTicket(String nodeId);
     }
 }

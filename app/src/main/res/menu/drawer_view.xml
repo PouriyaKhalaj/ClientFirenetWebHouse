@@ -2,13 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/counter" android:icon="@android:drawable/ic_menu_gallery"
+      <!--  <item android:id="@+id/counter" android:icon="@android:drawable/ic_menu_gallery"
             android:checked="true"
             android:title="@string/counter"/>
+            -->
         <item android:id="@+id/profile" android:icon="@android:drawable/ic_menu_myplaces"
             android:title="@string/profile" />
         <item android:id="@+id/ticketing" android:icon="@android:drawable/ic_menu_send"
             android:title="@string/ticketing" />
+        <!--
         <item android:id="@+id/questions" android:icon="@android:drawable/ic_menu_help"
             android:title="@string/questions"/>
         <item android:id="@+id/help" android:icon="@android:drawable/ic_menu_info_details"
@@ -17,13 +19,15 @@
             android:title="@string/regulation" />
         <item android:id="@+id/contacts" android:icon="@android:drawable/ic_menu_call"
             android:title="@string/contacts" />
+             -->
     </group>
 
-
+<!--
     <item android:title="@string/moreTools">
         <menu>
             <item android:id="@+id/setting" android:icon="@android:drawable/ic_menu_manage"
                 android:title="@string/help"/>
         </menu>
     </item>
+    -->
 </menu>
