@@ -149,9 +149,8 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
         fl_unAccept_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                dialog.dismiss();
                 if (STEP.equals(STEP_FINISH)) {
-
                 } else if (STEP.equals(STEP_ERROR_APP)) {
                     finish();
 

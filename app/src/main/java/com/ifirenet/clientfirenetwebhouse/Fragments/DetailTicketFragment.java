@@ -3,6 +3,7 @@ package com.ifirenet.clientfirenetwebhouse.Fragments;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,11 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.URLUtil;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,10 +47,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 /**
@@ -122,6 +129,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void initSupport(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         //LinearLayout layout = (LinearLayout) view.findViewById(R.id.ll_customer_detail_ticket_update);
         //layout.setVisibility(View.GONE);
 
@@ -143,10 +155,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                         "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
                 int pos = sp_support_attach.getSelectedItemPosition();
+                int statusPos = sp_support_status.getSelectedItemPosition();
                 String fullUrl = Urls.baseURL + "ClientPortalService.svc/UpdateTicket/"
                         + userInfo.login.getUsername()  + "/"
                         + userInfo.login.getPassword() + "/"
-                        + sp_support_status.getSelectedItemPosition() + 1
+                        + statusPos
                         + "/" + attachList.get(pos).id
                         + "/" + nodeId + "/"  + userInfo.user.id;
                 Ion.with(getActivity())
@@ -183,6 +196,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         sp_support_status.setOnItemSelectedListener(this);
     }
     private void initSpinner(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         sp_support_attach = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_attach);
         sp_support_status = (Spinner) view.findViewById(R.id.spinner_support_detail_ticket_status);
 
@@ -236,6 +254,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
 
     private ArrayList<DetailTicket> getDetailTickets(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return null;
+        }
         final ArrayList<DetailTicket> detailTicketList = new ArrayList<>();
 
         progressDialog = ProgressDialog.show(getActivity(), null,
@@ -309,14 +332,19 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void showCreateTicketDialog(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_create_ticket);
         final EditText input_title = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_title);
         final EditText input_text = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_text);
-        Spinner sp_create_priority = (Spinner) dialog.findViewById(R.id.spinner_create_ticket_alert_dialog_priority);
-        sp_create_priority.setVisibility(View.GONE);
+        LinearLayout layout = (LinearLayout) dialog.findViewById(R.id.ll_create_ticket_alert_dialog_priority);
+        layout.setVisibility(View.GONE);
         FrameLayout fl_accept_submit = (FrameLayout) dialog.findViewById(R.id.fl_create_ticket_dialog_accept_submit);
         FrameLayout fl_unAccept_submit = (FrameLayout) dialog.findViewById(R.id.fl__create_ticket_dialog_un_accept_submit);
         fl_accept_submit.setOnClickListener(new View.OnClickListener() {
@@ -329,9 +357,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
                     CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
-                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/"  + title + "/" + text + "/" + nodeId + "/" + userInfo.user.id;
+                    String baseUrl = Urls.baseURL + "ClientPortalService.svc/"+  "CreateThread/" + userInfo.login.getUsername()  + "/" + userInfo.login.getPassword() + "/";
+                    String requestURL = String.format( baseUrl + "%s/%s/%s/%s", Uri.encode(title), Uri.encode(text), Uri.encode(String.valueOf(nodeId)), Uri.encode(String.valueOf(userInfo.user.id)));
+
                     Ion.with(getActivity())
-                            .load(fullUrl)
+                            .load(requestURL)
                             .asString()
                             .withResponse()
                             .setCallback(new FutureCallback<Response<String>>() {
@@ -355,7 +385,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
                                             e1.printStackTrace();
                                             publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
                                         }
-                                    }
+                                    } else publicClass.showToast("خطا در دریافت اطلاعات! ");
                                 }
                             });
                     dialog.dismiss();
@@ -404,6 +434,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void updateTicketExternalStatus(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 

@@ -37,12 +37,13 @@
                         android:gravity="center_horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="نام نام خانوادگی"
                             android:id="@+id/txt_detail_ticket_full_name"
                             android:textIsSelectable="false"
-                            android:textSize="@dimen/txt_size_xmedium" />
+                            android:textSize="@dimen/txt_size_xmedium"
+                            android:gravity="center_horizontal" />
 
                     </LinearLayout>
 
@@ -53,11 +54,12 @@
                         android:gravity="center_horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="تاریخ"
                             android:id="@+id/txt_detail_ticket_creation_date"
-                            android:textSize="@dimen/txt_size_xmedium" />
+                            android:textSize="@dimen/txt_size_xmedium"
+                            android:gravity="center_horizontal" />
                     </LinearLayout>
 
                     <LinearLayout

@@ -48,13 +48,14 @@
                         android:textColor="@color/black"
                         android:layout_gravity="top"
                         android:layout_margin="@dimen/card_content_margin"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_weight="2"
+                        android:theme="@style/TextLabel"
                         android:textColor="#ffffff">
                         <EditText android:id="@+id/input_profile_firstName"
                             android:layout_width="match_parent"
@@ -98,13 +99,14 @@
                         android:textColor="@color/black"
                         android:layout_gravity="top"
                         android:layout_margin="@dimen/card_content_margin"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:textColor="#ffffff"
+                        android:theme="@style/TextLabel"
                         android:layout_margin="@dimen/card_content_margin">
                         <EditText android:id="@+id/input_profile_lastName"
                             android:layout_width="match_parent"
@@ -144,13 +146,14 @@
                         android:textColor="@color/black"
                         android:layout_gravity="top"
                         android:layout_margin="@dimen/card_content_margin"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_weight="2"
+                        android:theme="@style/TextLabel"
                         android:textColor="#ffffff">
                         <EditText android:id="@+id/input_profile_email"
                             android:layout_width="match_parent"
@@ -189,13 +192,14 @@
                         android:textColor="@color/black"
                         android:layout_gravity="top"
                         android:layout_margin="@dimen/card_content_margin"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_weight="2"
+                        android:theme="@style/TextLabel"
                         android:textColor="#ffffff">
                         <EditText android:id="@+id/input_profile_phoneNumber"
                             android:layout_width="match_parent"
@@ -235,13 +239,14 @@
                         android:textColor="@color/black"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_gravity="top"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_weight="2"
+                        android:theme="@style/TextLabel"
                         android:textColor="#ffffff">
                         <EditText android:id="@+id/input_profile_cellPhoneNumber"
                             android:layout_width="match_parent"
@@ -281,13 +286,14 @@
                         android:layout_gravity="top"
                         android:layout_margin="@dimen/card_content_margin"
                         android:text="سازمان یا شرکت:"
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textSize="@dimen/txt_size_normal" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/card_content_margin"
                         android:layout_weight="2"
+                        android:theme="@style/TextLabel"
                         android:textColor="#ffffff">
                         <EditText android:id="@+id/input_profile_company"
                             android:layout_width="match_parent"

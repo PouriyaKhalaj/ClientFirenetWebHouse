@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
@@ -68,7 +69,7 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     Object objectFilter;
     PublicClass publicClass;
     Spinner sp_create_priority;
-    int priority = 0;
+
     private UserInfo userInfo;
 
     private static final String ARG_PARAM2 = "param2";
@@ -122,7 +123,11 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     }
 
     private void createItemList() {
-
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 
@@ -270,6 +275,11 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     }
 
     public void showCreateTicketDialog(){
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -285,14 +295,21 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
             public void onClick(View v) {
                 String title = input_title.getText().toString();
                 String text = input_text.getText().toString();
+                int priority = sp_create_priority.getSelectedItemPosition();
                 if (!TextUtils.isEmpty(input_title.getText()) && !TextUtils.isEmpty(input_text.getText()))
                 {
+                    if (priority == 0){
+                        publicClass.showToast("الویت را مشخص کنید");
+                        return;
+                    }
                     progressDialog = ProgressDialog.show(getActivity(), null,
                             "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
                     CreateTicket ticket = new CreateTicket(title, text, 1, userInfo.user.id);
-                    String fullUrl = Urls.baseURL + "ClientPortalService.svc/CreateTicket/" + userInfo.login.getUsername() + "/" + userInfo.login.getPassword() + "/" + title + "/" + text + "/" + priority + "/" + userInfo.user.id;
+                    String baseUrl = Urls.baseURL + "ClientPortalService.svc/CreateTicket/" + userInfo.login.getUsername() + "/" + userInfo.login.getPassword() + "/";
+                    String requestURL = String.format( baseUrl + "%s/%s/%s/%s", Uri.encode(title), Uri.encode(text), Uri.encode(String.valueOf(priority)), Uri.encode(String.valueOf(userInfo.user.id)));
+
                     Ion.with(getActivity())
-                            .load(fullUrl)
+                            .load(requestURL)
                             .asString()
                             .withResponse()
                             .setCallback(new FutureCallback<Response<String>>() {
@@ -316,11 +333,11 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                                             e1.printStackTrace();
                                             publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
                                         }
-                                    }
+                                    } else publicClass.showToast("خطا در دریافت اطلاعات! ");
                                 }
                             });
                     dialog.dismiss();
-                }
+                } else publicClass.showToast("اطلاعات خواسته شده را پر نمایید");
             }
         });
         fl_unAccept_submit.setOnClickListener(new View.OnClickListener() {
@@ -384,10 +401,6 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position != 0){
-            priority = position - 1;
-            publicClass.showToast("select: " + priority);
-        }
     }
 
     @Override

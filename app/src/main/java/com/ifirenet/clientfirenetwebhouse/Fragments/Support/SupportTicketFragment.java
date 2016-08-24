@@ -112,6 +112,11 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
     }
 
     private void createItemList() {
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            return;
+        }
         progressDialog = ProgressDialog.show(getActivity(), null,
                 "در حال دریافت اطلاعات، لطفا صبر نمایید...", false, false);
 

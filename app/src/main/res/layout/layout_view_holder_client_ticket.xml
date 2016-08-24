@@ -47,69 +47,89 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="@dimen/card_content_margin"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/card_content_margin"
+                android:layout_marginBottom="@dimen/card_content_margin">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/card_content_margin"
+                    android:layout_marginLeft="@dimen/card_content_margin">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tracking_code"
                         android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="کد رهگیری: "
                         android:id="@+id/txt_client_ticket_tracking_code"
                         android:textIsSelectable="false"
-                        android:textSize="@dimen/txt_size_xmedium" />
+                        android:textSize="@dimen/txt_size_xmedium"
+                        android:gravity="center_horizontal" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/div_size"
+                    android:background="@color/colorBackground" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/card_content_margin"
+                    android:layout_marginRight="@dimen/card_content_margin">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/date"
                         android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="تاریخ: "
                         android:id="@+id/txt_client_ticket_date"
-                        android:textSize="@dimen/txt_size_xmedium" />
+                        android:textSize="@dimen/txt_size_xmedium"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/div_size"
+                    android:background="@color/colorBackground" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/card_content_margin"
+                    android:layout_marginLeft="@dimen/card_content_margin">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/status"
                         android:ems="@integer/esm_small"
                         android:textSize="@dimen/txt_size_xmedium" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="وضعیت: "
                         android:id="@+id/txt_client_ticket_status"
-                        android:textSize="@dimen/txt_size_xmedium" />
+                        android:textSize="@dimen/txt_size_xmedium"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
 
             </LinearLayout>

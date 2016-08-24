@@ -6,54 +6,72 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment"
-    android:background="@color/colorBackground">
+    android:background="@drawable/side_bg_content">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none"
         android:fillViewport="true">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#30000000">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginLeft="@dimen/card_margin_medium"
-                android:layout_marginTop="@dimen/box_content_margin"
-                android:layout_marginRight="@dimen/card_margin_medium"
-                android:layout_marginBottom="@dimen/card_margin_medium"
-                android:gravity="center">
+                android:layout_gravity="center_horizontal|top">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ورود به سامانه"
-                    android:id="@+id/textView4"
-                    android:textSize="@dimen/txt_size_xxlarge"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="50dp" />
+                    android:gravity="center_horizontal"
+                    android:layout_margin="@dimen/card_margin">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_web_house_logo"
+                        android:layout_marginBottom="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="به پرتال مشتریان خانه وب خوش آمدید."
+                        android:textSize="@dimen/txt_size_large" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_view_drafts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     app:cardUseCompatPadding="true"
                     app:cardBackgroundColor="#C5FFFCFC"
-                    android:layout_marginBottom="@dimen/card_margin">
+                    android:layout_margin="@dimen/card_margin">
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/card_margin">
+                        android:padding="@dimen/card_margin"
+                        android:gravity="center_horizontal">
 
+                        <!--  Username Label -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ورود به سامانه"
+                            android:id="@+id/textView4"
+                            android:textSize="@dimen/txt_size_xlarge"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp" />
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -81,8 +99,7 @@
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
-
-                        <!--  Username Label -->
+                        <!--  Password Label -->
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
@@ -112,8 +129,6 @@
 
 
                         </LinearLayout>
-                        <!--  Password Label -->
-
                         <!--  Submit Bottom -->
                         <android.support.v7.widget.CardView
                             android:id="@+id/card_view_login_submit_sign_in"
@@ -146,9 +161,15 @@
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.85" />
             </LinearLayout>
-        </FrameLayout>
     </ScrollView>
 </LinearLayout>
