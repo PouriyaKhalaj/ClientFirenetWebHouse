@@ -74,7 +74,7 @@ public class PublicClass {
         toast.show();
     }
 
-    public void showSnackBar(String msg, final View coordinatorLayout){
+   public void showSnackBar(String msg, final View coordinatorLayout){
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, msg, Snackbar.LENGTH_INDEFINITE)
                 .setAction("قبول", new View.OnClickListener() {

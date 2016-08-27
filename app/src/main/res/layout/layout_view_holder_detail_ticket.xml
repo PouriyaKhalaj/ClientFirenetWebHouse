@@ -18,83 +18,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_margin="@dimen/card_content_margin"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@color/footerCard">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
+                        android:layout_margin="@dimen/card_content_margin"
+                        android:layout_weight="1">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="نام نام خانوادگی"
                             android:id="@+id/txt_detail_ticket_full_name"
                             android:textIsSelectable="false"
-                            android:textSize="@dimen/txt_size_xmedium"
-                            android:gravity="center_horizontal" />
+                            android:gravity="start|center_horizontal"
+                            android:textSize="@dimen/txt_size_small" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
+                        android:gravity="end"
+                        android:layout_margin="@dimen/card_content_margin">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="تاریخ"
                             android:id="@+id/txt_detail_ticket_creation_date"
-                            android:textSize="@dimen/txt_size_xmedium"
-                            android:gravity="center_horizontal" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="زمان ارسال:"
-                            android:textSize="@dimen/txt_size_xmedium" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="11:00"
-                            android:id="@+id/txt_detail_ticket_creation_time"
-                            android:textSize="@dimen/txt_size_xmedium" />
+                            android:gravity="center_horizontal"
+                            android:textSize="@dimen/txt_size_small" />
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <FrameLayout
-                    android:layout_width="@dimen/div_size"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_size"
                     android:background="@color/colorBackground"></FrameLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
                     android:gravity="right"
                     android:layout_margin="@dimen/card_content_margin">
 
@@ -103,8 +82,7 @@
                         android:layout_height="wrap_content"
                         android:text="عنوان سوال"
                         android:id="@+id/txt_detail_ticket_title"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/txt_size_normal" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="wrap_content"

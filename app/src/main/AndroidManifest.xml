@@ -13,16 +13,19 @@
         android:icon="@mipmap/ic_web_house_launcher"
         android:label="@string/app_name"
         android:screenOrientation="reversePortrait"
+        android:configChanges="orientation|screenSize"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
             android:label="پیشخوان"
+            android:screenOrientation="portrait"
             android:supportsRtl="true">
 
         </activity>
         <activity
             android:name=".Activities.IntroActivity"
+            android:screenOrientation="portrait"
             android:supportsRtl="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -30,13 +30,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="اعلام نتیجه بررسی"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/card_margin_xmedium" />
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_customer_detail_ticket_result"
-                    android:entries="@array/result_arrays"/>
+                    android:entries="@array/result_arrays"
+                    android:dropDownWidth="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>
@@ -91,14 +93,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_support_detail_ticket_status"
-                    android:entries="@array/status_arrays"/>
+                    android:entries="@array/status_arrays" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:paddingLeft="@dimen/card_content_margin"
                 android:paddingRight="@dimen/card_content_margin">
@@ -166,9 +167,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_arrow_up"
+            android:src="@drawable/ic_up_arrow"
             app:layout_anchor="@id/recycler_view_detail_ticket"
-            app:layout_anchorGravity="bottom|end" />
+            app:layout_anchorGravity="bottom|end"
+            app:backgroundTint="#64414b55"
+            app:backgroundTintMode="src_over"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            android:adjustViewBounds="false"
+            android:background="#64414b55"  />
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

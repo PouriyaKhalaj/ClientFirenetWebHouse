@@ -197,7 +197,7 @@ public class SupportTicketFragment extends Fragment implements TicketRecyclerAda
     private void showFilterDialog(final MenuItem item) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_support_ticket_filter);
 
         final EditText input_trackingCode = (EditText) dialog.findViewById(R.id.input_support_alert_dialog_tracking_code);

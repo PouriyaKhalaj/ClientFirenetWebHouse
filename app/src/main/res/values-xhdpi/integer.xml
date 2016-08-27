@@ -4,5 +4,5 @@
   4.65 	720 × 1280 	xhdpi
   4.7 	1280 × 720 	xhdpi
    -->
-    <integer name="esm">5</integer>
+    <integer name="esm">10</integer>
 </resources>

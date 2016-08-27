@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment"
-    android:background="@drawable/side_bg_content">
+    tools:context="com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="به پرتال مشتریان خانه وب خوش آمدید."
-                        android:textSize="@dimen/txt_size_large" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
 
                 <Space
@@ -69,9 +68,9 @@
                             android:layout_height="wrap_content"
                             android:text="ورود به سامانه"
                             android:id="@+id/textView4"
-                            android:textSize="@dimen/txt_size_xlarge"
                             android:textStyle="bold"
-                            android:layout_marginBottom="10dp" />
+                            android:layout_marginBottom="10dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <LinearLayout
                             android:orientation="horizontal"

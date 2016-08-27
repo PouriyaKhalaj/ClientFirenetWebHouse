@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 480dp: a tweener tablet like the Streak (480x800 mdpi). 5.1”  480x800 mdpi / 5.4”  480x854 mdpi  -->
-    <integer name="esm">5</integer>
+    <integer name="esm">10</integer>
 </resources>

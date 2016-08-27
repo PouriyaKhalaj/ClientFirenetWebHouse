@@ -127,8 +127,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     private void createItemList() {
         boolean isConnect = publicClass.isConnection();
         if (!isConnect){
-            //publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
-            publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید" , coordinatorLayout);
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            // publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید" , coordinatorLayout);
             return;
         }
         progressDialog = ProgressDialog.show(getActivity(), null,
@@ -147,15 +147,15 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     public void onCompleted(Exception e, Response<String> result) {
                         progressDialog.dismiss();
                         if (e != null){
-                           // publicClass.showToast("خطا در دریافت اطلاعات!");
-                            publicClass.showSnackBar("خطا در دریافت اطلاعات!", coordinatorLayout);
+                            publicClass.showToast("خطا در دریافت اطلاعات!");
+                            //  publicClass.showSnackBar("خطا در دریافت اطلاعات!", coordinatorLayout);
                             return;
                         }
                         if (result.getHeaders().code() == 200) {
                             setClientTickets(result.getResult());
                         } else {
-                            //publicClass.showToast(result.getHeaders().message());
-                            publicClass.showSnackBar(result.getHeaders().message(),  coordinatorLayout);
+                            publicClass.showToast(result.getHeaders().message());
+                            // publicClass.showSnackBar(result.getHeaders().message(),  coordinatorLayout);
                         }
                     }
                 });
@@ -214,7 +214,7 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     private void showFilterDialog(final MenuItem item) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_client_ticket_filter);
 
         final EditText input_trackingCode = (EditText) dialog.findViewById(R.id.input_alert_dialog_tracking_code);
@@ -251,8 +251,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                     // recyclerView.getAdapter().notifyDataSetChanged();
                     dialog.dismiss();
                 } else {
-                   // publicClass.showToast("جهت جستجو اطلاعات خواسته شده را پر نمایید");
-                    publicClass.showSnackBar("جهت جستجو اطلاعات خواسته شده را پر نمایید",  coordinatorLayout);
+                    publicClass.showToast("جهت جستجو اطلاعات خواسته شده را پر نمایید");
+                    //  publicClass.showSnackBar("جهت جستجو اطلاعات خواسته شده را پر نمایید",  coordinatorLayout);
                 }
             }
         });
@@ -280,15 +280,10 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
     }
 
     public void showCreateTicketDialog(){
-        boolean isConnect = publicClass.isConnection();
-        if (!isConnect){
-           //publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
-            publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید", coordinatorLayout);
-            return;
-        }
+
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_create_ticket);
         final EditText input_title = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_title);
         final EditText input_text = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_text);
@@ -299,6 +294,12 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
         fl_accept_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isConnect = publicClass.isConnection();
+                if (!isConnect){
+                    publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+                    //  publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید", coordinatorLayout);
+                    return;
+                }
                 String title = input_title.getText().toString();
                 String text = input_text.getText().toString();
                 int priority = sp_create_priority.getSelectedItemPosition();
@@ -323,8 +324,8 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                                 public void onCompleted(Exception e, Response<String> result) {
                                     progressDialog.dismiss();
                                     if (e != null){
-                                       // publicClass.showToast("خطا در دریافت اطلاعات! "+ e.getMessage());
-                                        publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e.getMessage(), coordinatorLayout);
+                                        publicClass.showToast("خطا در دریافت اطلاعات! "+ e.getMessage());
+                                        // publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e.getMessage(), coordinatorLayout);
                                         return;
                                     }
                                     if (result.getHeaders().code() == 200) {
@@ -332,19 +333,19 @@ public class CustomerTicketFragment extends Fragment implements TicketRecyclerAd
                                             JSONObject object = new JSONObject(result.getResult());
                                             if (object.has("text"))
                                                 if (object.getBoolean("text")){
-                                                   // publicClass.showToast("با موفقیت ارسال شد");
-                                                    publicClass.showSnackBar("با موفقیت ارسال شد", coordinatorLayout);
+                                                    publicClass.showToast("با موفقیت ارسال شد");
+                                                    // publicClass.showSnackBar("با موفقیت ارسال شد", coordinatorLayout);
                                                     createItemList();
                                                 }
 
                                         } catch (JSONException e1) {
                                             e1.printStackTrace();
-                                          //  publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
-                                            publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e1.getMessage(), coordinatorLayout);
+                                           publicClass.showToast("خطا در دریافت اطلاعات! "+ e1.getMessage());
+                                            //   publicClass.showSnackBar("خطا در دریافت اطلاعات! "+ e1.getMessage(), coordinatorLayout);
                                         }
                                     } else {
-                                        //publicClass.showToast("خطا در دریافت اطلاعات! ");
-                                        publicClass.showSnackBar("خطا در دریافت اطلاعات! ", coordinatorLayout);
+                                        publicClass.showToast("خطا در دریافت اطلاعات! ");
+                                        // publicClass.showSnackBar("خطا در دریافت اطلاعات! ", coordinatorLayout);
                                     }
                                 }
                             });

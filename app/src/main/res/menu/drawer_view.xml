@@ -22,12 +22,10 @@
              -->
     </group>
 
-<!--
     <item android:title="@string/moreTools">
         <menu>
-            <item android:id="@+id/setting" android:icon="@android:drawable/ic_menu_manage"
-                android:title="@string/help"/>
+            <item android:id="@+id/exit" android:icon="@drawable/ic_exit"
+                android:title="@string/exit"/>
         </menu>
     </item>
-    -->
 </menu>

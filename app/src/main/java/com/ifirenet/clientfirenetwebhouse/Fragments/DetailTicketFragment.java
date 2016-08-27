@@ -119,6 +119,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         cardView.setVisibility(View.GONE);
 
         sp_customer_result = (Spinner) view.findViewById(R.id.spinner_customer_detail_ticket_result);
+       // ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.status_arrays, R.layout.custom_spinner_list);
+       // ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.status_arrays, R.layout.custom_spinner_list);
+        //adapter.setDropDownViewResource(R.layout.customer_spinner);
+       // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       // sp_support_status.setAdapter(adapter);
         sp_customer_result.setOnItemSelectedListener(this);
     }
 
@@ -333,10 +338,11 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
         }
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_create_ticket);
         final EditText input_title = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_title);
         final EditText input_text = (EditText) dialog.findViewById(R.id.input_create_ticket_alert_dialog_text);
+        TextView txt_title = (TextView) dialog.findViewById(R.id.txt_create_ticket_alert_dialog_title);
+        txt_title.setText("ایجاد پاسخ جدید");
         LinearLayout layout = (LinearLayout) dialog.findViewById(R.id.ll_create_ticket_alert_dialog_priority);
         layout.setVisibility(View.GONE);
         FrameLayout fl_accept_submit = (FrameLayout) dialog.findViewById(R.id.fl_create_ticket_dialog_accept_submit);
@@ -396,7 +402,7 @@ public class DetailTicketFragment extends Fragment implements AdapterView.OnItem
     public void showAlertDialog(String title, String text, String yesSubmitText, String noSubmitText){
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_public);
         final TextView txt_title = (TextView) dialog.findViewById(R.id.txt_public_dialog_title);
         final TextView txt_text = (TextView) dialog.findViewById(R.id.txt_public_dialog_text);

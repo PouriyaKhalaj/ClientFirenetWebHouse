@@ -2,9 +2,11 @@
 <resources>
     <color name="colorPrimary">#414b55</color>
     <color name="colorPrimaryDark">#202933</color>
-    <color name="colorAccent">#0F8009</color>
+    <color name="colorAccent">#0f8009</color>
 
     <color name="colorBackground">#cccccc</color>
+    <color name="footerCard">#f2f2f2</color>
+
     <color name="cursorAccent">#fd8888</color>
     <color name="controlNormal">#888888</color>
     <color name="controlActivated">#1b45ff</color>

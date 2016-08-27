@@ -109,8 +109,11 @@ public class TicketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             vhct.getDate().setText(clientTicket.createDate);
             vhct.getTrackingCode().setText(String.valueOf(clientTicket.trackingCode));
             vhct.getStatus().setText(String.valueOf(clientTicket.status));
-            if (validator.validate(clientTicket.statusColor))
+            if (validator.validate(clientTicket.statusColor)){
                 vhct.getStatus().setTextColor(Color.parseColor(clientTicket.statusColor));
+                vhct.getBorderStatus().setBackgroundColor(Color.parseColor(clientTicket.statusColor));
+            }
+
 
             vhct.getItem().setOnClickListener(new View.OnClickListener() {
                 @Override

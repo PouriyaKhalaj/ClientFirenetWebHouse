@@ -22,8 +22,8 @@
                 android:layout_margin="@dimen/card_content_margin"
                 android:textColor="@color/gray"
                 android:textStyle="bold"
-                android:textSize="@dimen/txt_size_large"
-                android:id="@+id/txt_public_dialog_title" />
+                android:id="@+id/txt_public_dialog_title"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -36,7 +36,6 @@
                 android:text="متن ...."
                 android:id="@+id/txt_public_dialog_text"
                 android:layout_margin="@dimen/card_content_margin"
-                android:textSize="@dimen/txt_size_normal"
                 android:textColor="@color/black" />
 
         </LinearLayout>

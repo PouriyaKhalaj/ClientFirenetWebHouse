@@ -22,7 +22,7 @@
                 android:layout_margin="@dimen/card_content_margin"
                 android:textColor="@color/gray"
                 android:textStyle="bold"
-                android:textSize="@dimen/txt_size_large" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout
                 android:orientation="horizontal"

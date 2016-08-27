@@ -11,7 +11,7 @@ import com.ifirenet.clientfirenetwebhouse.R;
  */
 public class ViewHolderDetailTicket extends RecyclerView.ViewHolder {
 
-    public TextView Title, Text, FullName, CreationDate, CreationTime;
+    public TextView Title, Text, FullName, CreationDate;
 
     public ViewHolderDetailTicket(View v) {
         super(v);
@@ -19,6 +19,5 @@ public class ViewHolderDetailTicket extends RecyclerView.ViewHolder {
         Text = (TextView) v.findViewById(R.id.txt_detail_ticket_text);
         FullName = (TextView) v.findViewById(R.id.txt_detail_ticket_full_name);
         CreationDate = (TextView) v.findViewById(R.id.txt_detail_ticket_creation_date);
-        CreationTime = (TextView) v.findViewById(R.id.txt_detail_ticket_creation_time);
     }
 }

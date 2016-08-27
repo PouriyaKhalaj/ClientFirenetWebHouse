@@ -15,23 +15,24 @@
 
 
         <!-- TODO: Update blank fragment layout -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="فهرست پرسش ها"
+            android:text="فهرست درخواست ها"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_margin="10dp"
-            android:textSize="@dimen/txt_size_xlarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <android.support.v7.widget.RecyclerView
-            android:paddingTop="?attr/actionBarSize"
             android:id="@+id/recycler_view_question_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never"
+            android:transitionGroup="false"
+            android:touchscreenBlocksFocus="false" />
 
     </LinearLayout>
         <android.support.design.widget.FloatingActionButton
@@ -40,7 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_arrow_up"
+            android:src="@drawable/ic_up_arrow"
             app:layout_anchor="@id/recycler_view_question_list"
-            app:layout_anchorGravity="bottom|end" />
+            app:layout_anchorGravity="bottom|end"
+            app:backgroundTint="#64414b55"
+            app:backgroundTintMode="src_over"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            android:adjustViewBounds="false"
+            android:background="#64414b55" />
 </android.support.design.widget.CoordinatorLayout>

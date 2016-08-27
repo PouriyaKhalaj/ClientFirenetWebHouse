@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="esm">10</integer>
-    <integer name="esm_small">4</integer>
+    <integer name="esm_small">6</integer>
 </resources>

@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.PowerManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,28 +20,19 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.gson.Gson;
 import com.ifirenet.clientfirenetwebhouse.Fragments.LoginFragment;
 import com.ifirenet.clientfirenetwebhouse.R;
+import com.ifirenet.clientfirenetwebhouse.Utils.PublicClass;
 import com.ifirenet.clientfirenetwebhouse.Utils.Update.Version;
 import com.ifirenet.clientfirenetwebhouse.Utils.Update.VersionList;
 import com.ifirenet.clientfirenetwebhouse.Utils.Urls;
 import com.ifirenet.clientfirenetwebhouse.Utils.UserInfo;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.ProgressCallback;
 import com.koushikdutta.ion.Response;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class IntroActivity extends AppCompatActivity implements LoginFragment.OnLoginFragmentListener {
 
@@ -53,12 +42,13 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
     private static String STEP_UPDATE = "update";
     private static String STEP_ERROR_APP = "errorApp";
     VersionList versionList;
+    PublicClass publicClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
+        publicClass = new PublicClass(this);
         checkApkVersion();
 
         fragmentClass = LoginFragment.class;
@@ -67,6 +57,12 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
 
     private void checkApkVersion() {
         String fullUrl = Urls.baseURL + Urls.checkVersionURL;
+        boolean isConnect = publicClass.isConnection();
+        if (!isConnect){
+            publicClass.showToast("از وصل بودن اینترنت مطمئن شوید");
+            // publicClass.showSnackBar("از وصل بودن اینترنت مطمئن شوید" , coordinatorLayout);
+            return;
+        }
         Ion.with(this)
                 .load(fullUrl)
                 .asString()
@@ -131,7 +127,7 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
     public void showAlertDialog(final String STEP, String title, String text, String yesSubmitText, String noSubmitText) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_public);
         final TextView txt_title = (TextView) dialog.findViewById(R.id.txt_public_dialog_title);
         final TextView txt_text = (TextView) dialog.findViewById(R.id.txt_public_dialog_text);
@@ -207,6 +203,31 @@ public class IntroActivity extends AppCompatActivity implements LoginFragment.On
             startActivity(i);
             finish();
         }
+    }
+
+    public void onStart()
+    {
+        super.onStart();
+    }
+    public void onRestart()
+    {
+        super.onRestart();
+    }
+    public void onResume()
+    {
+        super.onResume();
+    }
+    public void onPause()
+    {
+        super.onPause();
+    }
+    public void onStop()
+    {
+        super.onStop();
+    }
+    public void onDestroy()
+    {
+        super.onDestroy();
     }
 
     @Override

@@ -15,7 +15,7 @@
         android:layout_marginRight="@dimen/card_margin">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -33,13 +33,23 @@
                     android:text="عنوان سوال"
                     android:id="@+id/txt_support_ticket_title"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_size_normal" />
+                    android:layout_weight="1"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تاریخ: "
+                    android:ems="@integer/esm_small"
+                    android:id="@+id/txt_support_ticket_date"
+                    android:gravity="center_horizontal"
+                    android:textSize="@dimen/txt_size_small" />
 
             </LinearLayout>
 
             <FrameLayout
-                android:layout_width="@dimen/div_size"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_size"
                 android:background="@color/colorBackground"></FrameLayout>
 
             <LinearLayout
@@ -47,34 +57,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@color/footerCard">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/card_content_margin"
-                    android:layout_marginRight="@dimen/card_content_margin"
-                    android:layout_marginTop="@dimen/card_content_margin">
+                    android:layout_height="match_parent">
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tracking_code"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="کد رهگیری: "
-                        android:id="@+id/txt_support_ticket_code"
-                        android:textIsSelectable="false"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal" />
+                        android:layout_margin="@dimen/card_margin_xmedium">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tracking_code"
+                            android:textSize="@dimen/txt_size_small" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="کد رهگیری:  "
+                            android:id="@+id/txt_support_ticket_code"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/txt_size_small" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="@dimen/div_size"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBackground" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/card_margin_xmedium">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status"
+                            android:textSize="@dimen/txt_size_small"
+                            android:gravity="center_vertical" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="وضعیت: "
+                            android:id="@+id/txt_support_ticket_status"
+                            android:enabled="false"
+                            android:textSize="@dimen/txt_size_small"
+                            android:textColor="@color/abc_input_method_navigation_guard" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -84,123 +125,57 @@
                     android:background="@color/colorBackground" />
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/card_content_margin"
-                    android:layout_marginRight="@dimen/card_content_margin">
+                    android:layout_height="match_parent">
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/date"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="تاریخ: "
-                        android:ems="@integer/esm_small"
-                        android:id="@+id/txt_support_ticket_date"
-                        android:textSize="@dimen/txt_size_xmedium"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal" />
-                </LinearLayout>
+                        android:layout_margin="@dimen/card_margin_xmedium">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/div_size"
-                    android:background="@color/colorBackground" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/priority"
+                            android:textSize="@dimen/txt_size_small"
+                            android:gravity="center_vertical" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/card_content_margin"
-                    android:layout_marginLeft="@dimen/card_content_margin">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="اولویت"
+                            android:id="@+id/txt_support_tiket_priority"
+                            android:textSize="@dimen/txt_size_small" />
+                    </LinearLayout>
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="@dimen/div_size"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBackground"></FrameLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/status"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="وضعیت: "
-                        android:ems="@integer/esm_small"
-                        android:id="@+id/txt_support_ticket_status"
-                        android:textSize="@dimen/txt_size_xmedium"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal" />
-                </LinearLayout>
+                        android:layout_margin="@dimen/card_margin_xmedium">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/div_size"
-                    android:background="@color/colorBackground" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/result"
+                            android:textSize="@dimen/txt_size_small" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/card_content_margin"
-                    android:layout_marginLeft="@dimen/card_content_margin">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/priority"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="اولویت"
-                        android:ems="@integer/esm_small"
-                        android:id="@+id/txt_support_tiket_priority"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/div_size"
-                    android:background="@color/colorBackground"></FrameLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/card_content_margin"
-                    android:layout_marginRight="@dimen/card_content_margin"
-                    android:layout_marginBottom="@dimen/card_content_margin">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/result"
-                        android:ems="@integer/esm_small"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="نتیجه"
-                        android:ems="@integer/esm_small"
-                        android:id="@+id/txt_support_tiket_result"
-                        android:textSize="@dimen/txt_size_xmedium"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="نتیجه"
+                            android:id="@+id/txt_support_tiket_result"
+                            android:textSize="@dimen/txt_size_small" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

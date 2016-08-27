@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 600dp: a 7” tablet (600x1024 mdpi).  7.0”  tablet 1024x600 mdpi -->
-    <integer name="esm">5</integer>
+    <integer name="esm">10</integer>
 </resources>

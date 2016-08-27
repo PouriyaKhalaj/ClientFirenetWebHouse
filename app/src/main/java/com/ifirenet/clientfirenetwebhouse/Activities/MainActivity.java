@@ -1,6 +1,7 @@
 package com.ifirenet.clientfirenetwebhouse.Activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.design.widget.NavigationView;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         publicClass = new PublicClass(this);
 
@@ -144,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             case R.id.ticketing:
                 switchTicketFragment();
                 break;
+            case R.id.exit:
+                startActivity(new Intent(this, IntroActivity.class));
+                finish();
+                break;
         }
 
         // Highlight the selected item, update the title, and close the drawer
@@ -206,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
     public void showAlertDialog(String title, String text, String yesSubmitText, String noSubmitText){
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_popup_public);
         final TextView txt_title = (TextView) dialog.findViewById(R.id.txt_public_dialog_title);
         final TextView txt_text = (TextView) dialog.findViewById(R.id.txt_public_dialog_text);
@@ -234,6 +240,41 @@ public class MainActivity extends AppCompatActivity implements CustomerTicketFra
             }
         });
         dialog.show();
+    }
+
+    public void onStart()
+    {
+        super.onStart();
+    }
+    public void onRestart()
+    {
+        super.onRestart();
+    }
+    public void onResume()
+    {
+        super.onResume();
+    }
+    public void onPause()
+    {
+        super.onPause();
+    }
+    public void onStop()
+    {
+        super.onStop();
+    }
+    public void onDestroy()
+    {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState) {
+        super.onRestoreInstanceState(savedState);
     }
 
     @Override
